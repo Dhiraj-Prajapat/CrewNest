@@ -9,8 +9,8 @@ import { useChannelId } from "@/hooks/use-channel-id";
 import { ChatInput } from "./chat-input";
 import { Header } from "./header";
 
-const ChannelIdPage = () => {
-  const channelId = useChannelId();
+export default function ChannelIdPage() {
+  const channelId = useChannelId(); 
 
   const { results, status, loadMore } = useGetMessages({ channelId });
   const { data: channel, isLoading: channelLoading } = useGetChannel({
@@ -54,4 +54,3 @@ const ChannelIdPage = () => {
   );
 };
 
-export default ChannelIdPage;
