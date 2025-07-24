@@ -7,7 +7,7 @@ import { useGetWorkspace } from '@/features/workspaces/api/use-get-workspace';
 import { useGetChannels } from '@/features/channels/api/use-get-channels';
 import { useCreateChannelModel } from '@/features/channels/Store/use-create-channel-model';
 import { useWorkspaceId } from '@/hooks/use-workspace-id';
-import { useGetWorkspaceInfo } from '@/features/workspaces/api/use-get-workspace-info';
+// import { useGetWorkspaceInfo } from '@/features/workspaces/api/use-get-workspace-info';
 import { useCurrentMember } from '@/features/members/api/use-current-member';
 const WorkspaceIdPage = () => {
   const router = useRouter();
