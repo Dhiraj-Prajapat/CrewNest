@@ -48,7 +48,7 @@ export const CreateWorkspaceModel = () => {
     <Dialog open={open || isPending} onOpenChange={handleClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add a workspace</DialogTitle>
+          <DialogTitle>Add new workspace</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -72,71 +72,3 @@ export const CreateWorkspaceModel = () => {
   );
 };
 
-
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogDescription,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogTrigger,
-// } from "@/components/ui/dialog";
-// import { Input } from "@/components/ui/input";
-// import { Button } from "@/components/ui/button";
-
-// import { useCreateWorkspace } from "../api/use-create-workspace";
-// import { useCreateWorkspaceModel } from "../store/use-create-workspace-model";
-
-// export const CreateWorkspaceModel = () => {
-
-//   const [open, setOpen] = useCreateWorkspaceModel();
-
-//   const { mutate, isPending } = useCreateWorkspace();
-
-//   const handleClose = () => {
-//     setOpen(false);
-//     //todo: clear from
-//   };
-
-//   const handleSubmit = async () => {
-//     try {
-//       const data = await mutate(
-//         {
-//           name: "workspace 1",
-//         },
-//         {
-//           onSuccess(data) {},
-//           onError(error) {},
-//         }
-//       );
-//     } catch (error) {}
-//   };
-
-//   return (
-//     <Dialog open={open} onOpenChange={handleClose}>
-//       <DialogContent>
-//         <DialogHeader>
-//           <DialogTitle>Create Workspace</DialogTitle>
-//         </DialogHeader>
-//         <form className="space-y-4">
-//           <Input
-//             value=""
-//             disabled={false}
-//             required
-//             autoFocus
-//             minLength={3}
-//             placeholder="Workspace Name e.g. 'Work', 'Personal', 'Home',"
-//           />
-//           <div className="flex justify-end">
-//             <Button disabled={false}>Create</Button>
-//           </div>
-//         </form>
-//       </DialogContent>
-//     </Dialog>
-//   );
-// };
-
-
-
-
-// //////////////// hand written code above

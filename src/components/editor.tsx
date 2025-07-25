@@ -1,11 +1,4 @@
-
-// export const Editor = () => {
-//   return(
-//     <div>Editor</div>
-//   )
-// }
-
-
+'use client';
 
 import { ImageIcon, Smile, XIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -14,7 +7,6 @@ import type { Delta, Op } from 'quill/core';
 import 'quill/dist/quill.snow.css';
 import { type MutableRefObject, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { MdSend } from 'react-icons/md';
-import { PiTextAa } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -48,7 +40,6 @@ const Editor = ({
 }: EditorProps) => {
   const [text, setText] = useState('');
   const [image, setImage] = useState<File | null>(null);
-  const [isToolbarVisible, setIsToolbarVisible] = useState(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const imageElementRef = useRef<HTMLInputElement>(null);
@@ -66,6 +57,45 @@ const Editor = ({
     disabledRef.current = disabled;
   });
 
+  const applyMarkdownFormatting = (text: string, quill: Quill) => {
+    const patterns: { regex: RegExp; attr: any }[] = [
+      { regex: /\*(.*?)\*/g, attr: { bold: true } },
+      { regex: /_(.*?)_/g, attr: { italic: true } },
+      { regex: /~(.*?)~/g, attr: { strike: true } },
+      { regex: /`(.*?)`/g, attr: { code: true } },
+      { regex: /..(.*?)../g, attr: { underline: true } },
+    ];
+
+    const ops: Op[] = [];
+    let index = 0;
+
+    while (index < text.length) {
+      let matched = false;
+
+      for (const { regex, attr } of patterns) {
+        regex.lastIndex = index;
+        const match = regex.exec(text);
+
+        if (match && match.index === index) {
+          if (match[1]) {
+            ops.push({ insert: match[1], attributes: attr });
+          }
+          index += match[0].length;
+          matched = true;
+          break;
+        }
+      }
+
+      if (!matched) {
+        ops.push({ insert: text[index] });
+        index++;
+      }
+    }
+
+    ops.push({ insert: '\n' });
+    quill.setContents(ops);
+  };
+
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -74,16 +104,13 @@ const Editor = ({
 
     const options: QuillOptions = {
       modules: {
-        toolbar: [
-          ['bold', 'italic', 'strike'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-        ],
+        toolbar: false,
         keyboard: {
           bindings: {
             enter: {
               key: 'Enter',
               handler: () => {
-                const text = quill.getText();
+                const text = quill.getText().trim();
 
                 if (!imageElementRef.current || !submitRef.current) return;
 
@@ -92,6 +119,8 @@ const Editor = ({
                 const isEmpty = !addedImage && text.replace(/<(.|\n)*?>/g, '').trim().length === 0;
 
                 if (isEmpty) return;
+
+                applyMarkdownFormatting(text, quill);
 
                 const body = JSON.stringify(quill.getContents());
 
@@ -128,32 +157,19 @@ const Editor = ({
 
     return () => {
       if (container) container.innerHTML = '';
-
       quill.off(Quill.events.TEXT_CHANGE);
-
       if (quillRef) quillRef.current = null;
       if (innerRef) innerRef.current = null;
     };
   }, [innerRef]);
 
-  const toggleToolbar = () => {
-    setIsToolbarVisible((current) => !current);
-
-    const toolbarElement = containerRef.current?.querySelector('.ql-toolbar');
-
-    if (toolbarElement) toolbarElement.classList.toggle('hidden');
-  };
-
   const onEmojiSelect = (emoji: string) => {
     const quill = quillRef.current;
-
     if (!quill) return;
-
     quill.insertText(quill.getSelection()?.index || 0, emoji);
   };
 
   const isIOS = /iPad|iPhone|iPod|Mac/.test(navigator.userAgent);
-
   const isEmpty = !image && text.replace(/<(.|\n)*?>/g, '').trim().length === 0;
 
   return (
@@ -175,7 +191,6 @@ const Editor = ({
                 <button
                   onClick={() => {
                     setImage(null);
-
                     imageElementRef.current!.value = '';
                   }}
                   className="absolute -right-2.5 -top-2.5 z-[4] hidden size-6 items-center justify-center rounded-full border-2 border-white bg-black/70 text-white hover:bg-black group-hover/image:flex"
@@ -195,12 +210,6 @@ const Editor = ({
         )}
 
         <div className="z-[5] flex px-2 pb-2">
-          <Hint label={isToolbarVisible ? 'Hide formatting' : 'Show formatting'}>
-            <Button disabled={disabled} size="iconSm" variant="ghost" onClick={toggleToolbar}>
-              <PiTextAa className="size-4" />
-            </Button>
-          </Hint>
-
           <EmojiPopover onEmojiSelect={onEmojiSelect}>
             <Button disabled={disabled} size="iconSm" variant="ghost">
               <Smile className="size-4" />
@@ -226,6 +235,9 @@ const Editor = ({
                 onClick={() => {
                   if (!quillRef.current) return;
 
+                  const text = quillRef.current.getText().trim();
+                  applyMarkdownFormatting(text, quillRef.current);
+
                   onSubmit({
                     body: JSON.stringify(quillRef.current.getContents()),
                     image,
@@ -245,6 +257,9 @@ const Editor = ({
               disabled={disabled || isEmpty}
               onClick={() => {
                 if (!quillRef.current) return;
+
+                const text = quillRef.current.getText().trim();
+                applyMarkdownFormatting(text, quillRef.current);
 
                 onSubmit({
                   body: JSON.stringify(quillRef.current.getContents()),
