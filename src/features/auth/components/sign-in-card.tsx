@@ -77,14 +77,14 @@ export function SignInCard({ setState }: SignInCardProps) {
 
   return (
     <Card className="w-full max-w-md mx-auto p-6">
-      <CardHeader>
-        <h2 className="text-2xl font-bold">Login to Continue</h2>
+      <CardHeader className="text-center">
+        <h2 className="text-2xl font-bold text-center">Login to Continue</h2>
         <CardDescription>
           Use your email and password to continue
         </CardDescription>
       </CardHeader>
       {!!error && (
-        <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
+        <div className="bg-destructive/15 p-1 rounded-md flex items-center gap-x-2 text-sm text-destructive">
           <TriangleAlert className="size-4" />
           <p>{error}</p>
         </div>
@@ -153,7 +153,7 @@ export function SignInCard({ setState }: SignInCardProps) {
           </Button>
         </div>
 
-        <p>
+        <p className="text-center">
           Don&apos;t have an account ?{" "}
           <span
             onClick={() => setState("signUp")}
