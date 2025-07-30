@@ -54,11 +54,13 @@ export const WorkspaceSidebar = () => {
   }
 
   return (
-    <div className="flex h-full flex-col gap-y-2 bg-[#5E2C5F]">
-      <WorkspaceHeader
+    <div className="flex h-full flex-col gap-y-2 bg-[#5E2C5F] workspace-sidebar">
+      <div id="tour-invite-people">
+        <WorkspaceHeader
         workspace={workspace}
         isAdmin={member.role === "admin"}
       />
+      </div>
 
       {/* <div className="mt-3 flex flex-col px-2">
         <SidebarItem label="Threads" icon={MessageSquareText} id="threads" />
@@ -69,7 +71,7 @@ export const WorkspaceSidebar = () => {
       {channels && channels.length !== 0 && (
         <WorkspaceSection
           label="Channels"
-          hint="New Channel"
+          hint="Create New channels"
           onNew={member.role === "admin" ? () => setOpen(true) : undefined}
         >
           {channels?.map((item) => (
@@ -87,8 +89,8 @@ export const WorkspaceSidebar = () => {
       {members && members.length !== 0 && (
         <WorkspaceSection
           label="Direct Messages"
-          hint="New Direct Message"
-          onNew={member.role === "admin" ? () => {} : undefined}
+          hint="hide or unhide all members"
+          // onNew={member.role === "admin" ? () => {} : undefined}
         >
           {members?.map((item) => (
             <UserItem

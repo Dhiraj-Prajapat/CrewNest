@@ -63,7 +63,7 @@ const Editor = ({
       { regex: /_(.*?)_/g, attr: { italic: true } },
       { regex: /~(.*?)~/g, attr: { strike: true } },
       { regex: /`(.*?)`/g, attr: { code: true } },
-      { regex: /..(.*?)../g, attr: { underline: true } },
+      // { regex: /..(.*?)../g, attr: { underline: true } },
     ];
 
     const ops: Op[] = [];

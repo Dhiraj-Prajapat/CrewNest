@@ -19,11 +19,23 @@ export const CreateWorkspaceModel = () => {
   const [name, setName] = useState('');
   const [open, setOpen] = useCreateWorkspaceModel();
   const { isPending, mutate } = useCreateWorkspace();
+  const [showNote, setShowNote] = useState(false);
 
-  const handleClose = () => {
-    setOpen(false);
-    setName('');
-  };
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  //   setName('');
+  // };
+const handleClose = () => {
+  if (!name.trim()) {
+    setShowNote(true);
+    return;
+  }
+
+  setOpen(false);
+  setName('');
+  setShowNote(false);
+};
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,6 +74,11 @@ export const CreateWorkspaceModel = () => {
             maxLength={20}
             placeholder="Workspace name e.g 'Work', 'Personal', 'Home'"
           />
+          {showNote && (
+    <p className="text-sm text-red-500">
+      Note: you have to make at least one workspace.
+    </p>
+  )}
 
           <div className="flex justify-end">
             <Button disabled={isPending}>Create</Button>

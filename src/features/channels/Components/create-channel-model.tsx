@@ -55,7 +55,7 @@ import { toast } from "sonner";
   }
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
+    <Dialog open={open} onOpenChange={handleClose} >
       <DialogContent>
     <DialogHeader>
         <DialogTitle>Create Channel</DialogTitle>
