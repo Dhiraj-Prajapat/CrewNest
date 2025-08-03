@@ -38,7 +38,8 @@ body,
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
+  --color-primary: var(--primary-dark);
+  --color-primary-l: var(--primary-light);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -58,6 +59,8 @@ body,
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
   --primary: oklch(0.208 0.042 265.755);
+  --primary-dark: #004030;
+  --primary-light: #296a52;
   --primary-foreground: oklch(0.984 0.003 247.858);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
@@ -122,78 +125,28 @@ body,
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
-/* ----------------- */
-
-@keyframes shine {
-  0% {
-    background-position: -200%;
-  }
-  100% {
-    background-position: 200%;
-  }
-}
-
-/* Apply this class in JSX, no escaping needed */
-.animate-shine {
-  background-image: linear-gradient(
-    120deg,
-    #20b9dc 0%,
-    rgba(255, 255, 255, 0.3) 50%,
-    #20b9dc 100%
-  );
-  background-size: 200% auto;
-  background-position: -200%;
-  animation: shine 1s ease-in-out forwards;
-}
-
-
-
-/* niche ka code video se dekh ke likha hai but incomplete hai 
-(video me 80 ya 84 line se  likha hai uske pehle ka nahi hai) */
-
-.ql-container{
-  font-family: "Lato", sans-serif !important;
-  border: none m !important;
-  height: unset !important;
-}
-
-.ql-editor{
-  line-height: 22px !important;
-  padding: 8px 12px !important;
-  color: #1d1c1d !important;
-  font-weight: 400 !important;
-  font-family: "Lato", sans-serif !important;
-  font-size: 14px !important;
-}
-
-.ql-editor a{
-  color: #1264a3 !important;
-}
-
-.ql-editor a:hover {
-  text-decoration: underline !important;
-}
-
-.ql-renderer {
-  padding: 0 !important;
-}
-
-.ql-editor:before{
-  left: 12px !important;
-  font-family: "Lato", sans-serif !important;
-  color: #8d8d8d !important;
-  font-style: normal !important;
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  @apply truncate;
-}
 
 .messages-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #dcdcdc #f8f8f8;
+}
+
+/* place holder font changes */
+
+.signup-form input::placeholder {
+  font-size: 12px;
+}
+
+.signin-form input::placeholder {
+  font-size: 12px;
+}
+
+.complete-profile-form input::placeholder {
+  font-size: 12px;
 }

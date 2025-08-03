@@ -1,3 +1,5 @@
+"use client";
+
 import { AlertTriangle, ChevronDown, Loader, MailIcon, XIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -152,10 +154,10 @@ export const Profile = ({ memberId, onClose }: ProfileProps) => {
         </div>
 
         <div className="flex flex-col items-center justify-center p-4">
-          <Avatar className="size-full max-h-[256px] max-w-[256px]">
+          <Avatar className="size-full max-h-[256px] max-w-[256px] border border-gray-400 ">
             <AvatarImage src={member.user.image} />
 
-            <AvatarFallback className="aspect-square text-6xl">{avatarFallback}</AvatarFallback>
+            <AvatarFallback className="aspect-square text-7xl">{avatarFallback}</AvatarFallback>
           </Avatar>
         </div>
 

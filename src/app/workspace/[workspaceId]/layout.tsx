@@ -22,7 +22,11 @@ import { Card, CardContent } from "@/components/ui/card";
 
 //below 2 lines are fix the hydration error when i am importing below component.
 import dynamic from "next/dynamic";
-const TourGuide = dynamic(() => import("@/components/TourGuide"), { ssr: false });
+import { Button } from "@/components/ui/button";
+
+const TourGuide = dynamic(() => import("@/components/TourGuide"), {
+  ssr: false,
+});
 
 const WorkspaceIdLayout = ({ children }: Readonly<PropsWithChildren>) => {
   const { parentMessageId, profileMemberId, onClose } = usePanel();
@@ -51,27 +55,34 @@ const WorkspaceIdLayout = ({ children }: Readonly<PropsWithChildren>) => {
 
   return (
     <div>
-       {showTourCard && (
-        <Card className="fixed top-[50%] left-[50%] translate-[-50%] w-72 z-50 border bg-purple-400 shadow-md text-white">
-          <CardContent className="flex flex-col gap-3 pt-4">
-            <h2 className="text-lg font-semibold text-center">Welcome to CrewNest</h2>
-            <p className="text-center text-sm">Let&apos;s give you a quick walkthrough</p>
-            <button
-              className="bg-gray-500 hover:bg-gray-400 text-white px-3 py-1 rounded-md cursor-pointer"
-              onClick={() => {
-                setStartTour(true);
-                setShowTourCard(false);
-              }}
-            >
-              Start Guide
-            </button>
-          </CardContent>
-        </Card>
+      {showTourCard && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <Card className="w-72 border bg-primary shadow-md text-white">
+            <CardContent className="flex flex-col gap-3 pt-4">
+              <h2 className="text-lg font-semibold text-center">
+                Welcome to CrewNest
+              </h2>
+              <p className="text-center text-sm">
+                Let&apos;s have you a quick walkthrough
+              </p>
+              <Button
+                className="bg-white hover:bg-gray-300 text-black px-3 py-1 rounded-md cursor-pointer"
+                onClick={() => {
+                  setStartTour(true);
+                  setShowTourCard(false);
+                }}
+              >
+                Start Guide
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       )}
+
       <TourGuide run={startTour} onFinish={handleTourFinish} />
 
       <div id="app-welcome" className="h-full">
-          <Toolbar />
+        <Toolbar />
         <div className="flex h-[calc(100vh_-_40px)]">
           <Sidebar />
           <ResizablePanelGroup
@@ -93,7 +104,7 @@ const WorkspaceIdLayout = ({ children }: Readonly<PropsWithChildren>) => {
               <>
                 <ResizableHandle withHandle />
                 <ResizablePanel minSize={25} defaultSize={30} maxSize={32}>
-                  <div id="">
+                  <div>
                     {parentMessageId ? (
                       <Thread
                         messageId={parentMessageId as Id<"messages">}

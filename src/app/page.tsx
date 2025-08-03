@@ -27,7 +27,7 @@ export default function Home() {
   }, [workspaceId, isLoading, open, setOpen, router]);
 
   return (
-    <div className="flex h-full flex-1 flex-col items-center justify-center gap-2 bg-[#5E2C5F]/95 text-white">
+    <div className="flex h-full flex-1 flex-col items-center justify-center gap-2 bg-primary text-primary">
       <Loader className="size-5 animate-spin" />
       <UserButton />
     </div>

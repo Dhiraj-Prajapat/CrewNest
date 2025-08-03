@@ -1,3 +1,5 @@
+"use client";
+
 import { useMutation } from 'convex/react';
 import { useCallback, useMemo, useState } from 'react';
 

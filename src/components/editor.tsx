@@ -209,7 +209,7 @@ const Editor = ({
           </div>
         )}
 
-        <div className="z-[5] flex px-2 pb-2">
+        <div className="z-[5] flex px-2 py-2">
           <EmojiPopover onEmojiSelect={onEmojiSelect}>
             <Button disabled={disabled} size="iconSm" variant="ghost">
               <Smile className="size-4" />
@@ -244,7 +244,7 @@ const Editor = ({
                   });
                 }}
                 size="sm"
-                className="bg-[#007a5a] text-white hover:bg-[#007a5a]/80"
+                className="bg-primary text-white hover:bg-primary-l"
               >
                 Save
               </Button>
@@ -268,7 +268,7 @@ const Editor = ({
               }}
               className={cn(
                 'ml-auto',
-                isEmpty ? 'bg-white text-muted-foreground hover:bg-white/80' : 'bg-[#007a5a] text-white hover:bg-[#007a5a]/80',
+                isEmpty ? 'bg-white text-muted-foreground hover:bg-white/80' : 'bg-primary text-white hover:bg-primary-l',
               )}
               size="iconSm"
             >

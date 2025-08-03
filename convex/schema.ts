@@ -1,14 +1,52 @@
-import { authTables } from "@convex-dev/auth/server";
+// convex/schema.ts
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { authTables } from "@convex-dev/auth/server";
 
-const schema = defineSchema({
+export default defineSchema({
   ...authTables,
 
+  tasks: defineTable({
+    title: v.string(),
+    description: v.optional(v.string()),
+    status: v.union(
+      v.literal("todo"),
+      v.literal("inProgress"),
+      v.literal("done")
+    ),
+    // createdBy: v.id("users"),
+    createdBy: v.string(),
+    assignedTo: v.optional(v.id("users")),
+    dueDate: v.optional(v.string()), // ISO format
+    priority: v.optional(
+      v.union(v.literal("low"), v.literal("medium"), v.literal("high"))
+    ),
+    subtasks: v.optional(
+      v.array(
+        v.object({
+          title: v.string(),
+          isDone: v.boolean(),
+        })
+      )
+    ),
+    createdAt: v.number(),
+  })
+    .index("by_status", ["status"])
+    .index("by_createdBy", ["createdBy"]),
+
+  profiles: defineTable({
+    userId: v.string(), // should be string if you store `user._id`
+    name: v.string(),
+    age: v.string(),
+    contact: v.string(),
+    bio: v.string(),
+    company: v.string(),
+  }),
+
   userMetadata: defineTable({
-    userId: v.id("users"), // reference to convex auth user
-    isNewUser: v.boolean(), // true if new
-    tourSeen: v.boolean(), // has seen the demo tour
+    userId: v.id("users"),
+    isNewUser: v.boolean(),
+    tourSeen: v.boolean(),
   }).index("by_userId", ["userId"]),
 
   workspaces: defineTable({
@@ -57,7 +95,7 @@ const schema = defineSchema({
       "parentMessageId",
       "conversationId",
     ]),
-    
+
   reactions: defineTable({
     workspaceId: v.id("workspaces"),
     messageId: v.id("messages"),
@@ -68,5 +106,3 @@ const schema = defineSchema({
     .index("by_message_id", ["messageId"])
     .index("by_member_id", ["memberId"]),
 });
-
-export default schema;
