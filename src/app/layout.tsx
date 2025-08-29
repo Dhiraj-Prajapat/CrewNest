@@ -12,6 +12,7 @@ import AuthRedirect from '@/components/authRedirect';
 import { ThemeProvider } from '@/components/theme-provider'; // ✅ added
 
 import './globals.css';
+import { CallProvider } from '@/components/call-provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -27,6 +28,7 @@ const RootLayout = ({ children }: Readonly<PropsWithChildren>) => {
               <ConvexClientProvider>
                 <JotaiProvider>
                   <AuthRedirect>
+                    <CallProvider />
                     <Toaster theme="light" richColors closeButton />
                     <ModalProvider />
                     <NuqsAdapter>{children}</NuqsAdapter>
