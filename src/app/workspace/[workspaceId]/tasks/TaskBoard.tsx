@@ -21,7 +21,7 @@ export const TaskBoard = () => {
         </Button>
       </div>
 
-      {showForm && <TaskForm onSuccess={() => setShowForm(false)} />}
+      {showForm && <TaskForm />}
       
       <FilterBar />
       <TaskList />

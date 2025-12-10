@@ -14,10 +14,8 @@ const WorkspaceIdPage = () => {
   const router = useRouter();
   const workspaceId = useWorkspaceId();
   const [open, setOpen] = useCreateChannelModel();
-  const { data: workspace, isLoading: workspaceLoading } = useGetWorkspace({
-    id: workspaceId,
-  });
-  // const { data: workspace, isLoading: workspaceLoading } = useGetWorkspaceInfo({ id: workspaceId });
+  const { data: workspace, isLoading: workspaceLoading } = useGetWorkspace({ id: workspaceId });
+  // const { data: workspace, isLoading: workspaceLoading } = useGetWorkspaceInfo({ id: workspaceId || null });
   const { data: channels, isLoading: channelsLoading } = useGetChannels({
     workspaceId,
   });

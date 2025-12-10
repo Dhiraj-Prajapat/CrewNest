@@ -9,13 +9,14 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import type { Id } from "../../../../../../convex/_generated/dataModel";
+import type { Task } from "../types/task";
 
-export function TaskForm() {
+export function TaskForm({task}: {task?: Task}) {
   const params = useParams();
-  const [title, setTitle] = useState("");
-  const [priority, setPriority] = useState<"low" | "medium" | "high">("low");
-  const [dueDate, setDueDate] = useState("");
-  const [assignedTo, setAssignedTo] = useState<Id<"profiles"> | "">("");
+  const [title, setTitle] = useState(task?.title || "");
+  const [priority, setPriority] = useState<"low" | "medium" | "high">(task?.priority || "medium");
+  const [dueDate, setDueDate] = useState(task?.dueDate || "");
+  const [assignedTo, setAssignedTo] = useState<Id<"profiles"> | "">(task?.assignedTo || "");
 
   const members = useQuery(api.members.getByWorkspace, {
     workspaceId: params.workspaceId as Id<"workspaces">
