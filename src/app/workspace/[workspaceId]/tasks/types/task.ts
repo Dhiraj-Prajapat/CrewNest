@@ -1,9 +1,17 @@
+import { Id } from "@/../convex/_generated/dataModel";
+
 export interface Task {
-  _id: string; // or `Id<"tasks">` if you're typing from Convex
+  _id: Id<"tasks">;
   title: string;
   description?: string;
   priority: "low" | "medium" | "high";
   dueDate?: string;
-  assignedTo?: string;
+  completed: boolean;
+  assignedTo?: Id<"users">;
+  createdBy: Id<"users">;
   subtasks?: string[];
+  workspaceId: Id<"workspaces">;
+  createdAt: number;
+  assignedToUser?: { name?: string; image?: string };
+  createdByUser?: { name?: string; image?: string };
 }

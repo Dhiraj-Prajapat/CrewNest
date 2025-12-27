@@ -22,6 +22,7 @@ import { useGetChannels } from '@/features/channels/api/use-get-channels';
 import { useGetMembers } from '@/features/members/api/use-get-members';
 import { useGetWorkspace } from '@/features/workspaces/api/use-get-workspace';
 import { useWorkspaceId } from '@/hooks/use-workspace-id';
+import { NotificationsPopover } from '@/components/notifications-popover';
 
 export const Toolbar = () => {
   const router = useRouter();
@@ -59,7 +60,7 @@ export const Toolbar = () => {
   return (
     <nav id='tour-toolbar' className="flex h-10 items-center justify-between bg-primary p-1.5">
       <div className="flex-1" aria-hidden />
-      
+
       <div className="min-w-[280px] max-w-[642px] shrink grow-[2]">
         <Button onClick={() => setOpen(true)} size="sm" className="h-7 w-full justify-start bg-accent/25 px-2 hover:bg-accent/25">
           <Search className="mr-2 size-4 text-white" />
@@ -96,12 +97,8 @@ export const Toolbar = () => {
         </CommandDialog>
       </div>
 
-      <div className="ml-auto flex flex-1 items-center justify-end">
-        {/* <Button variant="transparent" size="iconSm" asChild>
-          <Link href={"https://www.youtube.com/"} target="_blank" rel="noreferrer noopener" title="Help">
-            <IoMdInformationCircle  className="size-5 text-white" />
-          </Link>
-        </Button> */}
+      <div className="ml-auto flex flex-1 items-center justify-end gap-2">
+        <NotificationsPopover />
       </div>
     </nav>
   );

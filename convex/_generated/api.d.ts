@@ -20,6 +20,7 @@ import type * as functions from "../functions.js";
 import type * as http from "../http.js";
 import type * as members from "../members.js";
 import type * as messages from "../messages.js";
+import type * as notifications from "../notifications.js";
 import type * as profiles from "../profiles.js";
 import type * as reactions from "../reactions.js";
 import type * as tasks_create from "../tasks/create.js";
@@ -48,6 +49,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   members: typeof members;
   messages: typeof messages;
+  notifications: typeof notifications;
   profiles: typeof profiles;
   reactions: typeof reactions;
   "tasks/create": typeof tasks_create;

@@ -1,4 +1,4 @@
-import { ClerkProvider } from '@clerk/nextjs';
+// import { ClerkProvider } from '@clerk/nextjs';
 import { ConvexAuthNextjsServerProvider } from '@convex-dev/auth/nextjs/server';
 import { Inter } from 'next/font/google';
 import { PropsWithChildren } from 'react';
@@ -21,21 +21,21 @@ const RootLayout = ({ children }: Readonly<PropsWithChildren>) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-        <ClerkProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem> {/* ✅ ThemeProvider wraps all */}
-            <ConvexAuthNextjsServerProvider>
-              <ConvexClientProvider>
-                <JotaiProvider>
-                  <AuthRedirect>
-                    <Toaster theme="light" richColors closeButton />
-                    <ModalProvider />
-                    <NuqsAdapter>{children}</NuqsAdapter>
-                  </AuthRedirect>
-                </JotaiProvider>
-              </ConvexClientProvider>
-            </ConvexAuthNextjsServerProvider>
-          </ThemeProvider>
-        </ClerkProvider>
+        {/* <ClerkProvider> */}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem> {/* ✅ ThemeProvider wraps all */}
+          <ConvexAuthNextjsServerProvider>
+            <ConvexClientProvider>
+              <JotaiProvider>
+                <AuthRedirect>
+                  <Toaster theme="light" richColors closeButton />
+                  <ModalProvider />
+                  <NuqsAdapter>{children}</NuqsAdapter>
+                </AuthRedirect>
+              </JotaiProvider>
+            </ConvexClientProvider>
+          </ConvexAuthNextjsServerProvider>
+        </ThemeProvider>
+        {/* </ClerkProvider> */}
       </body>
     </html>
   );

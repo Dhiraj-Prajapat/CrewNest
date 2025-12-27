@@ -5,6 +5,7 @@ import { IconType } from "react-icons/lib";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+// interface SidebarButtonProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
 interface SidebarButtonProps {
   icon: LucideIcon | IconType;
   label: string;

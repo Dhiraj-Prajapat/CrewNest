@@ -89,7 +89,12 @@ export const current = query({
 
     if (!member) return null;
 
-    return member;
+    const user = await populateUser(ctx, member.userId);
+
+    return {
+      ...member,
+      user,
+    };
   },
 });
 

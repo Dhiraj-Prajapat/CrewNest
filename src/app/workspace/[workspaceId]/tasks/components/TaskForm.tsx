@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/../convex/_generated/api";
 import { Task } from "../types/task";
 import { useParams } from "next/navigation";
@@ -17,12 +17,14 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
   const { workspaceId } = useParams();
   const currentUser = useCurrentUser();
 
+  // Fetch workspace members for assignment
+  const members = useQuery(api.members.get, { workspaceId: workspaceId as Id<"workspaces"> });
+
   const [title, setTitle] = useState(task?.title || "");
   const [description, setDescription] = useState(task?.description || "");
-  const [priority, setPriority] = useState<"Low" | "Medium" | "High">(task?.priority || "Medium");
+  const [priority, setPriority] = useState<"low" | "medium" | "high">(task?.priority || "medium");
   const [dueDate, setDueDate] = useState(task?.dueDate || "");
   const [assignedTo, setAssignedTo] = useState<Id<"users"> | "">(task?.assignedTo || "");
-
   const [subtasks, setSubtasks] = useState<string[]>(task?.subtasks || []);
   const [newSubtask, setNewSubtask] = useState("");
 
@@ -33,7 +35,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
     e.preventDefault();
 
     if (!title.trim()) return;
-    if (!workspaceId || !currentUser?._id) {
+    if (!workspaceId || !currentUser?.data?._id) {
       console.error("Missing workspaceId or user ID");
       return;
     }
@@ -43,10 +45,9 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
       description,
       priority,
       dueDate,
-      assignedTo: assignedTo || undefined,
+      assignedTo: assignedTo || undefined, // Send undefined if empty string
       subtasks,
       workspaceId: workspaceId as Id<"workspaces">,
-      createdBy: currentUser._id as Id<"users">,
     };
 
     if (task?._id) {
@@ -61,7 +62,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-muted p-4 rounded-xl space-y-4 border shadow-sm"
+      className="bg-muted p-6 px-10 rounded-xl space-y-4 border shadow-sm"
     >
       <div>
         <label className="block text-sm font-medium">Title</label>
@@ -83,41 +84,48 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
         />
       </div>
 
-      <div>
-        <label className="block text-sm font-medium">Priority</label>
-        <select
-          className="w-full border rounded-md p-2 text-sm"
-          value={priority}
-          onChange={(e) => setPriority(e.target.value as "Low" | "Medium" | "High")}
-        >
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
+      <div className="grid grid-cols-3 gap-4">
+        <div>
+          <label className="block text-sm font-medium">Priority</label>
+          <select
+            className="w-full border rounded-md p-2 text-sm"
+            value={priority}
+            onChange={(e) => setPriority(e.target.value as "low" | "medium" | "high")}
+          >
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium">Assigned To</label>
+          <select
+            className="w-full border rounded-md p-2 text-sm"
+            value={assignedTo}
+            onChange={(e) => setAssignedTo(e.target.value as Id<"users">)}
+          >
+            <option value="">Unassigned</option>
+            {members?.map((member) => (
+              <option key={member._id} value={member.user._id}>
+                {member.user.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium">Due Date</label>
+          <input
+            type="date"
+            className="w-full border rounded-md p-2 text-sm"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+          />
+        </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium">Due Date</label>
-        <input
-          type="date"
-          className="w-full border rounded-md p-2 text-sm"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium">Assigned To</label>
-        <input
-          type="text"
-          className="w-full border rounded-md p-2 text-sm"
-          value={assignedTo}
-          onChange={(e) => setAssignedTo(e.target.value as Id<"users">)}
-          placeholder="User ID"
-        />
-      </div>
-
-      {/* ✅ Subtasks */}
+      {/* Subtasks */}
       <div className="space-y-2">
         <label className="block text-sm font-medium">Subtasks</label>
 
@@ -131,7 +139,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
           />
           <button
             type="button"
-            className="text-sm bg-primary text-white px-3 py-1 rounded-md"
+            className="text-sm bg-primary text-white px-10 py-1 rounded-md"
             onClick={() => {
               if (newSubtask.trim()) {
                 setSubtasks([...subtasks, newSubtask.trim()]);
@@ -139,21 +147,21 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
               }
             }}
           >
-            Add
+            Add Subtask
           </button>
         </div>
 
         {subtasks.length > 0 && (
-          <ul className="list-disc list-inside space-y-1">
+          <ul className="space-y-1">
             {subtasks.map((subtask, index) => (
               <li
                 key={index}
-                className="flex justify-between items-center text-sm"
+                className="flex justify-between items-center text-sm bg-background/50 p-2 rounded border"
               >
-                {subtask}
+                <span>{subtask}</span>
                 <button
                   type="button"
-                  className="text-red-500 hover:underline text-xs"
+                  className="text-red-500 hover:text-red-700 text-xs font-medium"
                   onClick={() =>
                     setSubtasks(subtasks.filter((_, i) => i !== index))
                   }
@@ -166,12 +174,14 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
         )}
       </div>
 
-      <button
-        type="submit"
-        className="bg-primary text-white px-4 py-2 rounded-md text-sm"
-      >
-        {task ? "Update Task" : "Create Task"}
-      </button>
+      <div className="flex justify-center w-full">
+        <button
+          type="submit"
+          className="w-full max-w-lg mx-auto bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-sm font-medium transition-colors"
+        >
+          {task ? "Update Task" : "Create Task"}
+        </button>
+      </div>
     </form>
   );
 };

@@ -1,5 +1,7 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+
 import { AlertTriangle, HashIcon, Loader } from "lucide-react";
 
 import { useGetChannels } from "@/features/channels/api/use-get-channels";
@@ -18,6 +20,7 @@ import { WorkspaceSection } from "./workspace-section";
 
 export const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId();
+  const pathname = usePathname();
   const channelId = useChannelId();
   const memberId = useMemberId();
 
@@ -53,13 +56,44 @@ export const WorkspaceSidebar = () => {
     );
   }
 
+  if (pathname.includes("/member") || pathname.includes("/dms")) {
+    return (
+      <div className="flex h-full flex-col bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800">
+        {/* Header */}
+        <div className="h-[49px] flex items-center px-4 border-b border-gray-200 dark:border-gray-800 sticky top-0 bg-white dark:bg-gray-900 z-10">
+          <h1 className="text-lg font-bold text-gray-800 dark:text-white">Direct Messages</h1>
+        </div>
+
+        {/* User List */}
+        <div className="flex-1 overflow-y-auto p-2">
+          <div className="space-y-[2px]">
+            {members?.map((item) => (
+              <UserItem
+                key={item._id}
+                id={item._id}
+                label={item.user.name}
+                image={item.user.image}
+                variant={item._id === memberId ? "activeMessage" : "message"}
+              />
+            ))}
+            {(!members || members.length === 0) && (
+              <div className="p-4 text-center text-sm text-gray-500">
+                No members found.
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-full flex-col gap-y-2 bg-primary-l workspace-sidebar">
       <div id="tour-invite-people">
         <WorkspaceHeader
-        workspace={workspace}
-        isAdmin={member.role === "admin"}
-      />
+          workspace={workspace}
+          isAdmin={member.role === "admin"}
+        />
       </div>
 
       {/* <div className="mt-3 flex flex-col px-2">
@@ -90,7 +124,7 @@ export const WorkspaceSidebar = () => {
         <WorkspaceSection
           label="Direct Messages"
           hint="hide or unhide all members"
-          // onNew={member.role === "admin" ? () => {} : undefined}
+        // onNew={member.role === "admin" ? () => {} : undefined}
         >
           {members?.map((item) => (
             <UserItem

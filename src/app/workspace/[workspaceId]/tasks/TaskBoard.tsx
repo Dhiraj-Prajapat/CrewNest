@@ -10,8 +10,8 @@ export const TaskBoard = () => {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <div className="space-y-4 p-4 max-w-3xl mx-auto">
-      <div className="flex justify-between items-center">
+    <div className="h-[calc(100vh-40px)] flex flex-col p-4 w-full mx-auto overflow-hidden">
+      <div className="flex justify-between items-center mb-4 shrink-0">
         <h2 className="text-2xl font-bold">Task Board</h2>
         <Button
           onClick={() => setShowForm(!showForm)}
@@ -21,10 +21,12 @@ export const TaskBoard = () => {
         </Button>
       </div>
 
-      {showForm && <TaskForm onSuccess={() => setShowForm(false)} />}
-      
-      <FilterBar />
-      <TaskList />
+      <div className="flex-1 overflow-y-auto space-y-4 pr-2">
+        {showForm && <div className="mb-4"><TaskForm onSuccess={() => setShowForm(false)} /></div>}
+
+        <FilterBar />
+        <TaskList />
+      </div>
     </div>
   );
 };

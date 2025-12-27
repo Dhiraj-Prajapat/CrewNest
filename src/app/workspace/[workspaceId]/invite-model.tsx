@@ -27,7 +27,7 @@ export const InviteModal = ({ open, setOpen, name, joinCode }: InviteModalProps)
 
     if (!ok) return;
 
-    console.log("code are commented")
+
 
     mutate(
       {
@@ -55,7 +55,7 @@ export const InviteModal = ({ open, setOpen, name, joinCode }: InviteModalProps)
 
   return (
     <>
-      <ConfirmDialog /> 
+      <ConfirmDialog />
 
       <Dialog open={open || isPending} onOpenChange={setOpen}>
         <DialogContent>

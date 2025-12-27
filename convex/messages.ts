@@ -288,6 +288,32 @@ export const create = mutation({
       parentMessageId: args.parentMessageId,
     });
 
+    // Notification Logic for DMs
+    if (_conversationId) {
+      const conversation = await ctx.db.get(_conversationId);
+      if (conversation) {
+        const otherMemberId = conversation.memberOneId === member._id ? conversation.memberTwoId : conversation.memberOneId;
+        const otherMember = await ctx.db.get(otherMemberId);
+
+        if (otherMember) {
+          // Fetch sender details for notification body
+          const senderUser = await ctx.db.get(member.userId);
+          const senderName = senderUser?.name || "Someone";
+
+          await ctx.db.insert("notifications", {
+            userId: otherMember.userId,
+            workspaceId: args.workspaceId,
+            type: "message",
+            itemId: messageId,
+            title: "New Message",
+            body: `${senderName} sent you a message`,
+            isRead: false,
+            fromUserId: userId
+          });
+        }
+      }
+    }
+
     return messageId;
   },
 });
