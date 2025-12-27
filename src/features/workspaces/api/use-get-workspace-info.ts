@@ -4,11 +4,11 @@ import { api } from '@/../convex/_generated/api';
 import type { Id } from '@/../convex/_generated/dataModel';
 
 interface useGetWorkspaceInfoProps {
-  id: Id<'workspaces'>;
+  id: Id<'workspaces'> | null;
 }
 
 export const useGetWorkspaceInfo = ({ id }: useGetWorkspaceInfoProps) => {
-  const data = useQuery(api.workspaces.getInfoById, { id });
+  const data = useQuery(api.workspaces.getInfoById, id ? { id } : 'skip');
   const isLoading = data === undefined;
 
   return { data, isLoading };

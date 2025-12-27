@@ -3,7 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { useFilters } from "../hooks/useFilters";
 
+<<<<<<< HEAD
 const priorities = ["All", "High", "Medium", "Low"] as const;
+=======
+const priorities = ["All", "high", "medium", "low"] as const;
+>>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
 
 export const FilterBar = () => {
   const { selectedPriority, setSelectedPriority } = useFilters();

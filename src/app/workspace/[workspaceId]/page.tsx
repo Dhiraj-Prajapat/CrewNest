@@ -19,6 +19,20 @@ import {
 const WorkspaceIdPage = () => {
   const router = useRouter();
   const workspaceId = useWorkspaceId();
+<<<<<<< HEAD
+=======
+  const [open, setOpen] = useCreateChannelModel();
+  const { data: workspace, isLoading: workspaceLoading } = useGetWorkspace({ id: workspaceId });
+  // const { data: workspace, isLoading: workspaceLoading } = useGetWorkspaceInfo({ id: workspaceId || null });
+  const { data: channels, isLoading: channelsLoading } = useGetChannels({
+    workspaceId,
+  });
+  const { data: member, isLoading: memberLoading } = useCurrentMember({
+    workspaceId,
+  });
+  const channelId = useMemo(() => channels?.[0]?._id, [channels]);
+  const isadmin = useMemo(() => member?.role === "admin", [member?.role]);
+>>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
 
   const { data: member, isLoading: memberLoading } = useCurrentMember({ workspaceId });
   const notificationCount = useQuery(api.notifications.count, { workspaceId });

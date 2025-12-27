@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Bell, Home, MessageSquare, MoreHorizontal, UserPlus, HashIcon } from "lucide-react";
+=======
+import { Bell, Home, MessageSquare, MoreHorizontal } from "lucide-react";
+>>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
 
 import { UserButton } from "@/features/auth/components/user-button";
 import { WorkspaceSwitcher } from "./workspace-switcher";
@@ -22,11 +26,14 @@ import { useWorkspaceId } from "@/hooks/use-workspace-id";
 export const Sidebar = () => {
   const pathname = usePathname();
   const workspaceId = useWorkspaceId();
+<<<<<<< HEAD
   const [inviteOpen, setInviteOpen] = useState(false);
   const [joinOpen, setJoinOpen] = useState(false);
 
   const { data: workspace } = useGetWorkspace({ id: workspaceId });
 
+=======
+>>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
   return (
     <aside
       id="tour-main-sidebar"
@@ -48,6 +55,7 @@ export const Sidebar = () => {
         href={`/workspace/${workspaceId}`}
         isActive={pathname.includes("/workspace") && !pathname.includes("/member") && !pathname.includes("/dms") && !pathname.includes("/tasks")}
       />
+<<<<<<< HEAD
       <SidebarButton
         icon={MessageSquare}
         label="DMs"
@@ -55,6 +63,10 @@ export const Sidebar = () => {
         isActive={pathname.includes("/member") || pathname.includes("/dms")}
       />
 
+=======
+      <SidebarButton icon={MessageSquare} label="DMs" />
+      <SidebarButton icon={Bell} label="Activity" />
+>>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
 
       <SidebarButton
         icon={ClipboardList}
@@ -63,6 +75,7 @@ export const Sidebar = () => {
         isActive={pathname.includes("/tasks")}
       />
 
+<<<<<<< HEAD
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -89,6 +102,9 @@ export const Sidebar = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+=======
+      <SidebarButton icon={MoreHorizontal} label="More" />
+>>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
       <div className="flex flex-col items-center justify-center gap-y-1 mt-auto">
         <UserButton />
       </div>

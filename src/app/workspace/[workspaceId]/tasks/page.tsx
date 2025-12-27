@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 // File: src/app/tasks/page.tsx
 
+=======
+>>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
 import { TaskBoard } from "./TaskBoard";
 
 export default function TasksPage() {
   return <TaskBoard />;
 }
+<<<<<<< HEAD
 
 
 
@@ -63,3 +67,5 @@ export default function TasksPage() {
 //     </div>
 //   );
 // }
+=======
+>>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848

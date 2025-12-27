@@ -28,8 +28,7 @@ export default function Home() {
 
   return (
     <div className="flex h-full flex-1 flex-col items-center justify-center gap-2 bg-primary text-primary">
-      <Loader className="size-5 animate-spin" />
-      <UserButton />
+      {!isLoading ? <UserButton /> : <Loader className="size-5 animate-spin" />}
     </div>
   );
 };

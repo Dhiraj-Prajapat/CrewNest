@@ -42,11 +42,5 @@ export const createOrGet = mutation({
     });
 
     return conversationId;
-    // const conversation = await ctx.db.get(conversationId);
-    // if(!conversation){
-    //   throw new Error('Conversation not found.'); 
-    // }
-    // return conversation;
   },
-  
 });

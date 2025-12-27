@@ -12,6 +12,7 @@ import AuthRedirect from '@/components/authRedirect';
 import { ThemeProvider } from '@/components/theme-provider'; // ✅ added
 
 import './globals.css';
+import { CallProvider } from '@/components/call-provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -21,6 +22,7 @@ const RootLayout = ({ children }: Readonly<PropsWithChildren>) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
+<<<<<<< HEAD
         {/* <ClerkProvider> */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem> {/* ✅ ThemeProvider wraps all */}
           <ConvexAuthNextjsServerProvider>
@@ -36,6 +38,24 @@ const RootLayout = ({ children }: Readonly<PropsWithChildren>) => {
           </ConvexAuthNextjsServerProvider>
         </ThemeProvider>
         {/* </ClerkProvider> */}
+=======
+        <ClerkProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem> {/* ✅ ThemeProvider wraps all */}
+            <ConvexAuthNextjsServerProvider>
+              <ConvexClientProvider>
+                <JotaiProvider>
+                  <AuthRedirect>
+                    <CallProvider />
+                    <Toaster theme="light" richColors closeButton />
+                    <ModalProvider />
+                    <NuqsAdapter>{children}</NuqsAdapter>
+                  </AuthRedirect>
+                </JotaiProvider>
+              </ConvexClientProvider>
+            </ConvexAuthNextjsServerProvider>
+          </ThemeProvider>
+        </ClerkProvider>
+>>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
       </body>
     </html>
   );
