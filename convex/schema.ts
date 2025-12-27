@@ -6,33 +6,41 @@ import { authTables } from "@convex-dev/auth/server";
 export default defineSchema({
   ...authTables,
 
-  tasks: defineTable({
-    title: v.string(),
-    description: v.optional(v.string()),
-    status: v.union(
-      v.literal("todo"),
-      v.literal("inProgress"),
-      v.literal("done")
-    ),
-    // createdBy: v.id("users"),
-    createdBy: v.string(),
-    assignedTo: v.optional(v.id("users")),
-    dueDate: v.optional(v.string()), // ISO format
-    priority: v.optional(
-      v.union(v.literal("low"), v.literal("medium"), v.literal("high"))
-    ),
-    subtasks: v.optional(
-      v.array(
-        v.object({
-          title: v.string(),
-          isDone: v.boolean(),
-        })
-      )
-    ),
-    createdAt: v.number(),
-  })
-    .index("by_status", ["status"])
-    .index("by_createdBy", ["createdBy"]),
+  // convex/schema.ts (add to your existing defineSchema block)
+
+tasks: defineTable({
+  workspaceId: v.id("workspaces"),
+  title: v.string(),
+  description: v.optional(v.string()),
+  priority: v.union(
+    v.literal("low"),
+    v.literal("medium"),
+    v.literal("high")
+  ),
+  dueDate: v.optional(v.string()), // Store as ISO string
+  completed: v.boolean(),
+  createdBy: v.id("users"),
+  assignedTo: v.optional(v.id("users")),
+  subtasks: v.optional(v.array(v.string())),
+  createdAt: v.number(),
+})
+  .index("by_workspace", ["workspaceId"])
+  .index("by_workspace_priority", ["workspaceId", "priority"]),
+
+taskAssignments: defineTable({
+  taskId: v.id("tasks"),
+  memberId: v.id("members")
+})
+  .index("by_task_id", ["taskId"])
+  .index("by_member_id", ["memberId"]),
+
+subtasks: defineTable({
+  taskId: v.id("tasks"),
+  title: v.string(),
+  isCompleted: v.boolean()
+})
+  .index("by_task_id", ["taskId"]),
+
 
   profiles: defineTable({
     userId: v.string(), // should be string if you store `user._id`

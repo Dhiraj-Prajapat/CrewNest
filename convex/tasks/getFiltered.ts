@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { query } from "./_generated/server";
+import { query } from "../_generated/server";
 
 export const getFiltered = query({
   args: {
@@ -10,7 +10,6 @@ export const getFiltered = query({
   },
   handler: async (ctx, args) => {
     if (args.priority) {
-      // Use correct index
       return await ctx.db
         .query("tasks")
         .withIndex("by_workspace_priority", (q) =>
@@ -19,7 +18,6 @@ export const getFiltered = query({
         .collect();
     }
 
-    // No priority filter
     return await ctx.db
       .query("tasks")
       .withIndex("by_workspace", (q) =>
