@@ -154,65 +154,29 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
 
       {/* Footer Info */}
       <div className="flex items-center justify-between pt-2 pl-7 text-xs text-muted-foreground">
-        <div className="flex items-center gap-2">
-          <span>{dueDateText}</span>
+        <div className="flex items-center justify-between pt-2 border-t mt-2">
+          {/* Assigned User */}
+          {task.assignedToUser ? (
+            <div className="flex items-center gap-2" title={`Assigned to ${task.assignedToUser.name}`}>
+              <Avatar className="h-6 w-6">
+                <AvatarImage src={task.assignedToUser.image} />
+                <AvatarFallback className="text-[10px]">{task.assignedToUser.name?.substring(0, 2).toUpperCase() || "U"}</AvatarFallback>
+              </Avatar>
+              <span className="text-xs text-muted-foreground max-w-[100px] truncate">
+                {task.assignedToUser.name}
+              </span>
+            </div>
+          ) : (
+            <span className="text-xs text-muted-foreground italic">Unassigned</span>
+          )}
+
+          {/* Subtasks Count */}
+          {task.subtasks && task.subtasks.length > 0 && (
+            <div className="text-xs text-muted-foreground flex items-center gap-1">
+              <span className="font-medium">{task.subtasks.length}</span> subtasks
+            </div>
+          )}
         </div>
-
-        {task.assignedToUser && (
-          <div className="flex items-center gap-1.5" title={`Assigned to ${task.assignedToUser.name}`}>
-            <Avatar className="h-5 w-5">
-              <AvatarImage src={task.assignedToUser.image} />
-              <AvatarFallback>{task.assignedToUser.name?.charAt(0)}</AvatarFallback>
-            </Avatar>
-            <span>{task.assignedToUser.name}</span>
-          </div>
-        )}
       </div>
-=======
-        "border rounded-lg p-4 cursor-pointer space-y-2",
-        task.priority === "High"
-          ? "border-red-500"
-          : task.priority === "Medium"
-          ? "border-yellow-500"
-          : "border-green-500"
-      )}
-      onClick={onClick}
-    >
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold">{task.title}</h3>
-        <span className="text-xs text-muted-foreground">
-          {task.priority} Priority
-        </span>
-      </div>
-
-      {task.description && (
-        <p className="text-sm text-muted-foreground">{task.description}</p>
-      )}
-
-      <div className="text-xs text-muted-foreground">
-        Due: {dueDateText}
-      </div>
-
-      {task.assignedTo && (
-        <div className="text-xs text-muted-foreground">
-          Assigned to: {task.assignedTo}
-        </div>
-      )}
-
-      {/* ✅ Subtasks */}
-      {task.subtasks && task.subtasks.length > 0 && (
-        <div className="pt-2">
-          <p className="text-xs font-medium text-muted-foreground mb-1">
-            Subtasks:
-          </p>
-          <ul className="list-disc list-inside space-y-1 text-sm">
-            {task.subtasks.map((subtask, index) => (
-              <li key={index}>{subtask}</li>
-            ))}
-          </ul>
-        </div>
-      )}
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
-    </div>
-  );
+      );
 };

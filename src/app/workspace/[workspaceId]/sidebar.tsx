@@ -1,72 +1,46 @@
-<<<<<<< HEAD
-import { Bell, Home, MessageSquare, MoreHorizontal, UserPlus, HashIcon } from "lucide-react";
-=======
-import { Bell, Home, MessageSquare, MoreHorizontal } from "lucide-react";
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
-
+```typescript
+import { Home, MessageSquare, MoreHorizontal, UserPlus, HashIcon, ClipboardList } from "lucide-react";
 import { UserButton } from "@/features/auth/components/user-button";
 import { WorkspaceSwitcher } from "./workspace-switcher";
 import { SidebarButton } from "./sidebar-button";
-
-import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace"; // Add this
-import { InviteModal } from "./invite-model"; // Add this
-import { JoinWorkspaceModal } from "./join-workspace-modal"; // Add this
+import { usePathname } from "next/navigation";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
-
-import { ClipboardList } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { JoinWorkspaceModal } from "@/components/modals/join-workspace-modal";
+import InviteModal from "@/components/modals/invite-modal"; // Ensure this import path is correct
+import SettingsModal from "@/components/modals/settings-modal";
 
 export const Sidebar = () => {
   const pathname = usePathname();
   const workspaceId = useWorkspaceId();
-<<<<<<< HEAD
   const [inviteOpen, setInviteOpen] = useState(false);
   const [joinOpen, setJoinOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const { data: workspace } = useGetWorkspace({ id: workspaceId });
-
-=======
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
   return (
     <aside
       id="tour-main-sidebar"
-      className="w-[70px] h-full bg-primary flex flex-col gap-y-4 items-center pt-[9px] pb-[4px]"
+      className="w-[70px] h-full bg-[#481349] flex flex-col gap-y-4 items-center pt-[9px] pb-4"
     >
-      <InviteModal
-        open={inviteOpen}
-        setOpen={setInviteOpen}
-        name={workspace?.name ?? "Workspace"}
-        joinCode={workspace?.joinCode ?? ""}
-      />
-      <JoinWorkspaceModal open={joinOpen} setOpen={setJoinOpen} />
-      <div id="tour-workspace-switcher">
-        <WorkspaceSwitcher />
-      </div>
+      <WorkspaceSwitcher />
       <SidebarButton
         icon={Home}
         label="Home"
-        href={`/workspace/${workspaceId}`}
+        href={`/ workspace / ${ workspaceId } `}
         isActive={pathname.includes("/workspace") && !pathname.includes("/member") && !pathname.includes("/dms") && !pathname.includes("/tasks")}
       />
-<<<<<<< HEAD
       <SidebarButton
         icon={MessageSquare}
         label="DMs"
-        href={`/workspace/${workspaceId}/dms`}
-        isActive={pathname.includes("/member") || pathname.includes("/dms")}
-      />
-
-=======
-      <SidebarButton icon={MessageSquare} label="DMs" />
-      <SidebarButton icon={Bell} label="Activity" />
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
+        href={`/ workspace / ${ workspaceId }/dms`}
+isActive = { pathname.includes("/member") || pathname.includes("/dms") }
+  />
 
       <SidebarButton
         icon={ClipboardList}
@@ -75,39 +49,51 @@ export const Sidebar = () => {
         isActive={pathname.includes("/tasks")}
       />
 
-<<<<<<< HEAD
-
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          {/* Wrapper div to allow trigger to work without passing onClick to SidebarButton if it doesn't support it well, 
-                 but we need SidebarButton to trigger it. 
-                 Since SidebarButton returns a link or div, we can wrap it. 
-                 Or better, just put the icon here if SidebarButton is strict. 
-                 Let's assume we use SidebarButton as visual. 
-                 Actually shadcn DropdownMenuTrigger expects a single child ref. 
-                 SidebarButton needs to forward ref or we use a plain button here matching style.
-             */}
-          <div className="cursor-pointer">
+          <div>
             <SidebarButton icon={MoreHorizontal} label="More" />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent side="right" align="center" forceMount>
-          <DropdownMenuItem onClick={() => setInviteOpen(true)} className="cursor-pointer">
+        <DropdownMenuContent side="right" align="start" className="w-56">
+          <DropdownMenuItem onClick={() => setInviteOpen(true)}>
             <UserPlus className="size-4 mr-2" />
-            Invite people
+            Invite Members
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setJoinOpen(true)} className="cursor-pointer">
+          <DropdownMenuItem onClick={() => setJoinOpen(true)}>
             <HashIcon className="size-4 mr-2" />
-            Join Workspace
+            Join Workflow
+          </DropdownMenuItem>
+           <DropdownMenuItem onClick={() => setSettingsOpen(true)}>
+            <div className="flex items-center">
+             Settings
+             </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-=======
-      <SidebarButton icon={MoreHorizontal} label="More" />
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
+
       <div className="flex flex-col items-center justify-center gap-y-1 mt-auto">
         <UserButton />
       </div>
-    </aside>
+
+      <InviteModal 
+        open={inviteOpen} 
+        setOpen={setInviteOpen} 
+        name="Workspace" 
+        joinCode="123456" 
+        workspaceId={workspaceId}
+      />
+      
+      <JoinWorkspaceModal 
+        open={joinOpen} 
+        setOpen={setJoinOpen} 
+      />
+
+      <SettingsModal 
+        isOpen={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+      />
+    </aside >
   );
 };
+```

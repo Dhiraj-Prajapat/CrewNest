@@ -8,57 +8,23 @@ export default defineSchema({
   // --- Authentication tables (users, sessions, etc.)
   ...authTables,
 
-<<<<<<< HEAD
-  // convex/schema.ts (add to your existing defineSchema block)
-
-=======
   // ========================
   // 📌 TASK MANAGEMENT
   // ========================
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
   tasks: defineTable({
     workspaceId: v.id("workspaces"),
     title: v.string(),
     description: v.optional(v.string()),
-<<<<<<< HEAD
-    priority: v.union(
-      v.literal("low"),
-      v.literal("medium"),
-      v.literal("high")
-    ),
-    dueDate: v.optional(v.string()), // Store as ISO string
-    completed: v.boolean(),
-    createdBy: v.id("users"),
-=======
     priority: v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
     dueDate: v.optional(v.string()), // stored as ISO string
     completed: v.boolean(),
     createdBy: v.id("users"), // reference to creator
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
     assignedTo: v.optional(v.id("users")),
     subtasks: v.optional(v.array(v.string())),
     createdAt: v.number(),
   })
     .index("by_workspace", ["workspaceId"])
     .index("by_workspace_priority", ["workspaceId", "priority"]),
-<<<<<<< HEAD
-
-  taskAssignments: defineTable({
-    taskId: v.id("tasks"),
-    memberId: v.id("members")
-  })
-    .index("by_task_id", ["taskId"])
-    .index("by_member_id", ["memberId"]),
-
-  subtasks: defineTable({
-    taskId: v.id("tasks"),
-    title: v.string(),
-    isCompleted: v.boolean()
-  })
-    .index("by_task_id", ["taskId"]),
-
-=======
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
 
   taskAssignments: defineTable({
     taskId: v.id("tasks"),
@@ -154,7 +120,6 @@ export default defineSchema({
     .index("by_message_id", ["messageId"])
     .index("by_member_id", ["memberId"]),
 
-<<<<<<< HEAD
   notifications: defineTable({
     userId: v.id("users"),           // Who receives the notification
     workspaceId: v.id("workspaces"),
@@ -165,8 +130,7 @@ export default defineSchema({
     isRead: v.boolean(),
     fromUserId: v.optional(v.id("users")), // Who triggered it
   }).index("by_user_workspace", ["userId", "workspaceId", "isRead"]),
-});
-=======
+
   // ========================
   // 📌 CALLS & WEBRTC
   // ========================
@@ -204,18 +168,6 @@ export default defineSchema({
     leftAt: v.optional(v.number()),
   }).index("by_callId", ["callId"]),
 });
-
-
-
-
-
-// // convex/schema.ts
-// import { defineSchema, defineTable } from "convex/server";
-// import { v } from "convex/values";
-// import { authTables } from "@convex-dev/auth/server";
-
-// export default defineSchema({
-//   ...authTables,
 
 //   // convex/schema.ts (add to your existing defineSchema block)
 
@@ -367,7 +319,7 @@ export default defineSchema({
 //     leftAt: v.optional(v.number()),
 //   }).index("by_callId", ["callId"]),
 // });
-  
-   
-    
+
+
+
 >>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
