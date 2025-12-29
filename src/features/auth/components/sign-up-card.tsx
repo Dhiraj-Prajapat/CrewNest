@@ -231,7 +231,7 @@
 // }
 
 // export function SignUpCard({ setState }: SignUpCardProps) {
-  
+
 //  const router = useRouter() //new
 //   const { signIn } = useAuthActions();
 
@@ -506,9 +506,10 @@ export function SignUpCard({ setState }: SignUpCardProps) {
       .then(() => {
         router.push("/complete-profile");
       })
-      .catch((err: any) => {
+      .catch((err: Error) => {
         console.error("Signup error:", err);
-        if (err?.message?.includes("already exists")) {
+        const errorMessage = err instanceof Error ? err.message : "Something went wrong";
+        if (errorMessage.includes("already exists")) {
           setError("This email is already registered.");
         } else {
           setError("Something went wrong. Please try again.");

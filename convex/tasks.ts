@@ -54,40 +54,45 @@ export const getFiltered = query({
     ),
   },
   handler: async (ctx, args) => {
-    const tasks = await ctx.db
-      .query("tasks")
-      .filter((q) => q.eq(q.field("workspaceId"), args.workspaceId))
-      .collect();
+    const userId = await getAuthUserId(ctx);
+    if (!userId) return [];
 
-    let filtered = tasks;
+    let query = ctx.db
+      .query("tasks")
+      .withIndex("by_workspace", (q) => q.eq("workspaceId", args.workspaceId));
+
     if (args.priority) {
-      filtered = tasks.filter((t) => t.priority === args.priority);
+      query = ctx.db
+        .query("tasks")
+        .withIndex("by_workspace_priority", (q) =>
+          q.eq("workspaceId", args.workspaceId).eq("priority", args.priority!)
+        );
     }
 
-    const userIds = filtered
-      .map((t) => t.assignedTo)
-      .filter(Boolean) as Id<"users">[];
+    const tasks = await query.collect();
 
-    const assignedUsers = await Promise.all(
-      userIds.map((id) => ctx.db.get(id))
+    const populatedTasks = await Promise.all(
+      tasks.map(async (task) => {
+        let assignedToUser = null;
+        let createdByUser = null;
+
+        if (task.assignedTo) {
+          assignedToUser = await ctx.db.get(task.assignedTo);
+        }
+
+        if (task.createdBy) {
+          createdByUser = await ctx.db.get(task.createdBy);
+        }
+
+        return {
+          ...task,
+          assignedToUser,
+          createdByUser
+        };
+      })
     );
 
-    return filtered.map((task) => {
-      const assignedUser = assignedUsers.find(
-        (u): u is Doc<"users"> => u?._id === task.assignedTo
-      );
-
-      return {
-        ...task,
-        assignedUser: assignedUser
-          ? {
-            id: assignedUser._id,
-            email: assignedUser.email,
-            name: assignedUser.name || assignedUser.email,
-          }
-          : null,
-      };
-    });
+    return populatedTasks;
   },
 });
 

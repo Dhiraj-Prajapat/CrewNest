@@ -58,6 +58,7 @@ const Editor = ({
   });
 
   const applyMarkdownFormatting = (text: string, quill: Quill) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const patterns: { regex: RegExp; attr: any }[] = [
       { regex: /\*(.*?)\*/g, attr: { bold: true } },
       { regex: /_(.*?)_/g, attr: { italic: true } },

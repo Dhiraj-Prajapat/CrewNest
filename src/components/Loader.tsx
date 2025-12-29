@@ -4,27 +4,6 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 // Animations
-const transformAnimation = keyframes`
-  0% {
-    transform: translate(-55%);
-  }
-  100% {
-    transform: translate(55%);
-  }
-`;
-
-const opacityAnimation = keyframes`
-  0%, 100% {
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  65% {
-    opacity: 0;
-  }
-`;
-
 const letterAnim = keyframes`
   0% {
     opacity: 0;

@@ -1,10 +1,10 @@
 'use client';
 
 import { Search } from 'lucide-react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { IoMdInformationCircle } from 'react-icons/io';
+// import { IoMdInformationCircle } from 'react-icons/io';
 
 import type { Id } from '@/../convex/_generated/dataModel';
 import { Button } from '@/components/ui/button';

@@ -16,6 +16,7 @@ import {
 import { useMutation, useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
 import { api } from "@/../convex/_generated/api";
+import Image from "next/image";
 import NewLoader from "@/components/Loader";
 
 interface FormData {
@@ -50,7 +51,6 @@ export default function UserDetailsForm() {
     bio: "",
   });
   const [isTyping, setIsTyping] = useState(false);
-  const [showCharacter, setShowCharacter] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [isAnimating, setIsAnimating] = useState(false);
@@ -194,7 +194,7 @@ export default function UserDetailsForm() {
 
     const startDelay = setTimeout(typeWriter, 300);
     return () => clearTimeout(startDelay);
-  }, [currentStepData.question]);
+  }, [currentStepData.question, isGoingBack]);
 
   // Immediate display when going back
   useEffect(() => {
@@ -316,7 +316,7 @@ export default function UserDetailsForm() {
 
           {/* Character Avatar */}
           <div
-            className={`flex justify-center mb-6 transition-all duration-500 ${showCharacter ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
+            className={`flex justify-center mb-6 transition-all duration-500 scale-100 opacity-100`}
           >
             <div className="relative">
               <div
@@ -326,10 +326,12 @@ export default function UserDetailsForm() {
                 {currentStep === steps.length - 1 ? (
                   "🎉"
                 ) : (
-                  <img
+                  <Image
                     src="/robotic.gif"
                     alt="robot gif"
                     className="w-30 h-30"
+                    width={100}
+                    height={100}
                   />
                 )}
               </div>
@@ -377,11 +379,10 @@ export default function UserDetailsForm() {
             currentStep < steps.length - 1 &&
             isTypingComplete && (
               <div
-                className={`space-y-6 transition-all duration-500  ease-out transform ${
-                  showInputs
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
-                }`}
+                className={`space-y-6 transition-all duration-500  ease-out transform ${showInputs
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+                  }`}
               >
                 <div className="relative">
                   <div>{/* {currentStepData.icon} */}</div>
@@ -392,12 +393,11 @@ export default function UserDetailsForm() {
                         <button
                           key={option}
                           onClick={() => handleInputChange(option)}
-                          className={`p-4 border-2 rounded-xl bg-[#f2f0EB] transition-all duration-300 text-left hover:scale-105 ${
-                            formData[currentStepData.id as keyof FormData] ===
+                          className={`p-4 border-2 rounded-xl bg-[#f2f0EB] transition-all duration-300 text-left hover:scale-105 ${formData[currentStepData.id as keyof FormData] ===
                             option
-                              ? "border-primary  shadow-lg"
-                              : "border-gray-200 hover:border-primary"
-                          }`}
+                            ? "border-primary  shadow-lg"
+                            : "border-gray-200 hover:border-primary"
+                            }`}
                         >
                           <div className="font-semibold text-gray-800 ">
                             {option}
@@ -448,11 +448,10 @@ export default function UserDetailsForm() {
                       setError("");
                     }}
                     disabled={currentStep <= 1}
-                    className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                      currentStep <= 1
-                        ? "text-gray-400 cursor-not-allowed"
-                        : "text-white hover:bg-gray-100 hover:text-gray-800 cursor-pointer"
-                    }`}
+                    className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${currentStep <= 1
+                      ? "text-gray-400 cursor-not-allowed"
+                      : "text-white hover:bg-gray-100 hover:text-gray-800 cursor-pointer"
+                      }`}
                   >
                     Back
                   </button>
@@ -460,12 +459,11 @@ export default function UserDetailsForm() {
                   <button
                     onClick={handleNext}
                     disabled={!canProceed() || isSubmitting || !!error}
-                    className={`px-8 py-3 rounded-xl font-medium transition-all duration-300 flex items-center cursor-pointer space-x-2 ${
-                      canProceed() && !isSubmitting && !error
-                        ? // ? 'bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
-                          "bg-white text-gray-600 shadow-lg hover:shadow-xl transform hover:scale-105"
-                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    }`}
+                    className={`px-8 py-3 rounded-xl font-medium transition-all duration-300 flex items-center cursor-pointer space-x-2 ${canProceed() && !isSubmitting && !error
+                      ? // ? 'bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                      "bg-white text-gray-600 shadow-lg hover:shadow-xl transform hover:scale-105"
+                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      }`}
                   >
                     <span>
                       {isSubmitting
@@ -484,11 +482,10 @@ export default function UserDetailsForm() {
           {(currentStep === 0 || currentStep === steps.length - 1) &&
             isTypingComplete && (
               <div
-                className={`text-center transition-all duration-500 ease-out transform ${
-                  showInputs
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
-                }`}
+                className={`text-center transition-all duration-500 ease-out transform ${showInputs
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+                  }`}
               >
                 <button
                   onClick={handleNext}

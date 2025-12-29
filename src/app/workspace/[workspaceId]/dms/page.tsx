@@ -1,11 +1,8 @@
 "use client";
 
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { Loader, MessageSquareText } from "lucide-react";
-import Image from "next/image";
+import { MessageSquareText } from "lucide-react";
 
 const DMsPage = () => {
-    const workspaceId = useWorkspaceId();
 
     return (
         <div className="h-full flex flex-col items-center justify-center bg-white dark:bg-gray-900 shadow-sm rounded-lg m-4">

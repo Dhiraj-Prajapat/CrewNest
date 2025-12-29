@@ -151,7 +151,7 @@
 //         {
 //           onSuccess: (callId) => {
 //             toast.success(`${type === "video" ? "Video" : "Voice"} call started`);
-            
+
 //             // Set the call state to show the panel
 //             const newCall = {
 //               _id: callId,
@@ -164,7 +164,7 @@
 //               participants: [],
 //               createdAt: Date.now(),
 //             };
-            
+
 //             setActiveCall(newCall);
 //             setIsInCall(true);
 //             setIsConnecting(false);
@@ -261,20 +261,20 @@ export const CallButton = ({
           // 👇 REPLACE THIS ENTIRE onSuccess CALLBACK
           onSuccess: (callId) => {
             toast.success(`${type === "video" ? "Video" : "Voice"} call started`);
-            
+
             // Set the call state with proper data
             const newCall = {
               _id: callId,
               workspaceId,
               channelId,
               conversationId,
-              initiatorId: "current-user" as any, // This should be the actual member ID
+              initiatorId: "current-user" as Id<"members">, // This should be the actual member ID
               type,
               status: "active" as const,
               participants: [],
               createdAt: Date.now(),
             };
-            
+
             setActiveCall(newCall);
             setIsInCall(true);
             setIsConnecting(false);

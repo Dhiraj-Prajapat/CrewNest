@@ -43,6 +43,8 @@ export const PreferencesModel = ({ open, setOpen, initialValue }: PreferencesMod
   const { mutate: removeWorkspace, isPending: isRemovingWorkspace } = useRemoveWorkspace();
 
   const handleRemove = async () => {
+    if (!workspaceId) return;
+
     const ok = await confirmDeleteWorkspace();
 
     if (!ok) return;
@@ -67,6 +69,8 @@ export const PreferencesModel = ({ open, setOpen, initialValue }: PreferencesMod
 
   const handleEdit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!workspaceId) return;
 
     updateWorkspace(
       {

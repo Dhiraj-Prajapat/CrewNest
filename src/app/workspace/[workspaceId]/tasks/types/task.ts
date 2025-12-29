@@ -12,6 +12,6 @@ export interface Task {
   createdBy: Id<"users">;
   subtasks?: string[];
   createdAt: number;
-  assignedToUser?: { name?: string; image?: string };
-  createdByUser?: { name?: string; image?: string };
+  assignedToUser?: { name?: string; image?: string } | null;
+  createdByUser?: { name?: string; image?: string } | null;
 }

@@ -24,7 +24,7 @@ export default convexAuthNextjsMiddleware(async (request) => {
   console.log("Is public:", isPublicPage(request));
 
   // Check authentication first
-  const isAuthenticated = await isAuthenticatedNextjs(request);
+  const isAuthenticated = await isAuthenticatedNextjs();
   console.log("Is authenticated:", isAuthenticated);
 
   // If user is authenticated and trying to access public/auth pages, redirect to home
@@ -40,7 +40,7 @@ export default convexAuthNextjsMiddleware(async (request) => {
   }
 
   // Protect private routes - redirect unauthenticated users to auth
-  if (!isAuthenticated) { 
+  if (!isAuthenticated) {
     console.log("❌ Not authenticated on protected route - redirecting to /auth");
     return nextjsMiddlewareRedirect(request, "/auth");
   }

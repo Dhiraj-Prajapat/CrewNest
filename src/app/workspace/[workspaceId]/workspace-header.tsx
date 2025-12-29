@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown, ListFilter, SquarePen } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 
 import { Doc } from '@/../convex/_generated/dataModel';
@@ -29,7 +29,7 @@ export const WorkspaceHeader = ({ workspace, isAdmin }: WorkspaceHeaderProps) =>
   return (
     <>
       <PreferencesModel open={preferencesOpen} setOpen={setPreferencesOpen} initialValue={workspace.name} />
-      <InviteModal open={inviteOpen} setOpen={setInviteOpen} name={workspace.name} joinCode={workspace.joinCode} />
+      <InviteModal open={inviteOpen} setOpen={setInviteOpen} name={workspace.name} joinCode={workspace.joinCode} workspaceId={workspace._id} />
 
       <div className="flex h-[49px] items-center justify-between gap-0.5 px-4">
         <DropdownMenu>

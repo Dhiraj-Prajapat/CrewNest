@@ -14,7 +14,7 @@
 //   const workspaceId = useWorkspaceId();
 //   const { data: currentMember } = useCurrentMember({ workspaceId });
 //   const { mutate: endCall } = useEndCall();
-  
+
 //   const {
 //     callState,
 //     toggleLocalAudio,
@@ -171,14 +171,14 @@
 
 // export const CallPanel = () => {
 //   const workspaceId = useWorkspaceId();
-  
+
 //   // Only call useCurrentMember if we have a valid workspaceId
 //   const { data: currentMember } = useCurrentMember({ 
 //     workspaceId: workspaceId || "skip" as any 
 //   });
-  
+
 //   const { mutate: endCall } = useEndCall();
-  
+
 //   const {
 //     callState,
 //     toggleLocalAudio,
@@ -341,14 +341,14 @@
 //     toggleLocalVideo,
 //     resetCallState,
 //   } = useCallState();
-  
+
 //   // Get workspaceId from the active call instead of URL
 //   const workspaceId = callState.activeCall?.workspaceId;
-  
+
 //   const { data: currentMember } = useCurrentMember({ 
 //     workspaceId: workspaceId || "skip" as any 
 //   });
-  
+
 //   const { mutate: endCall } = useEndCall();
 //   const [callDuration, setCallDuration] = useState("");
 
@@ -501,6 +501,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Mic, MicOff, Video, VideoOff, PhoneOff } from "lucide-react";
+// import { api } from "@/../convex/_generated/api";
+// import type { Id } from "@/../convex/_generated/dataModel";
+// import type { CallType } from "../types";
 import { Button } from "@/components/ui/button";
 import { useCallState } from "../store/useCallState";
 import { useEndCall } from "../api/use-call-signaling";
@@ -520,7 +523,7 @@ export const CallPanel = () => {
   // Get workspaceId from the call itself
   const workspaceId = callState.activeCall?.workspaceId;
   const { data: currentMember } = useCurrentMember({
-    workspaceId: workspaceId || "skip" as any,
+    workspaceId: workspaceId || null,
   });
   const { mutate: endCall } = useEndCall();
 
@@ -534,13 +537,14 @@ export const CallPanel = () => {
   // +++++ Local video capture +++++
   useEffect(() => {
     let stream: MediaStream | null = null;
+    const videoElement = localVideoRef.current;
 
-    if (callState.isInCall && callState.activeCall?.type === "video" && localVideoRef.current) {
+    if (callState.isInCall && callState.activeCall?.type === "video" && videoElement) {
       navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         .then((mediaStream) => {
           stream = mediaStream;
-          if (localVideoRef.current) {
-            localVideoRef.current.srcObject = mediaStream;
+          if (videoElement) {
+            videoElement.srcObject = mediaStream;
           }
         })
         .catch((err) => {
@@ -551,7 +555,7 @@ export const CallPanel = () => {
     // Cleanup
     return () => {
       stream?.getTracks().forEach(track => track.stop());
-      if (localVideoRef.current) localVideoRef.current.srcObject = null;
+      if (videoElement) videoElement.srcObject = null;
     };
   }, [callState.isInCall, callState.activeCall?.type]);
 

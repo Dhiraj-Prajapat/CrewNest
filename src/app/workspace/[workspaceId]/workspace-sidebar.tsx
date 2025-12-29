@@ -24,7 +24,7 @@ export const WorkspaceSidebar = () => {
   const channelId = useChannelId();
   const memberId = useMemberId();
 
-  const [_open, setOpen] = useCreateChannelModel();
+  const [, setOpen] = useCreateChannelModel();
 
   const { data: member, isLoading: memberLoading } = useCurrentMember({
     workspaceId,
@@ -35,11 +35,11 @@ export const WorkspaceSidebar = () => {
   const { data: channels, isLoading: channelsLoading } = useGetChannels({
     workspaceId,
   });
-  const { data: members, isLoading: membersLoading } = useGetMembers({
+  const { data: members } = useGetMembers({
     workspaceId,
   });
 
-  if (memberLoading || workspaceLoading || channelsLoading || membersLoading) {
+  if (memberLoading || workspaceLoading || channelsLoading) {
     return (
       <div className="flex h-full flex-col items-center justify-center bg-primary-l">
         <Loader className="size-5 animate-spin text-white" />

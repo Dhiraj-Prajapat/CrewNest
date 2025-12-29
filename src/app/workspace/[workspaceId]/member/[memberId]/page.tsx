@@ -17,9 +17,11 @@ const MemberIdPage = () => {
 
   const [conversationId, setConversationId] = useState<Id<'conversations'> | null>(null);
 
-  const { data, mutate, isPending } = useCreateOrGetConversation();
+  const { mutate, isPending } = useCreateOrGetConversation();
 
   useEffect(() => {
+    if (!workspaceId || !memberId) return;
+
     mutate(
       {
         workspaceId,

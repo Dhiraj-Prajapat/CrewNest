@@ -26,7 +26,7 @@ export function SignInCard({ setState }: SignInCardProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [pending, setPending] = useState(false);
-  const [errors, setErrors] = useState({ email: "", password: "" });
+  const [errors] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
   const onPasswordSignIn = (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,29 +47,6 @@ export function SignInCard({ setState }: SignInCardProps) {
     signIn(value).finally(() => {
       setPending(false);
     });
-  };
-
-    const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Basic validation
-    let emailError = "";
-    let passwordError = "";
-    if (!email.includes("@")) {
-      emailError = "Please enter a valid email";
-    }
-    if (password.length < 6) {
-      passwordError = "Password must be at least 6 characters";
-    }
-
-    if (emailError || passwordError) {
-      setErrors({ email: emailError, password: passwordError });
-      return;
-    }
-
-    setErrors({ email: "", password: "" });
-    console.log({ email, password });
-    // Continue with your login logic
   };
 
   return (

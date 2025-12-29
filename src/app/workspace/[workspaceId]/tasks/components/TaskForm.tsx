@@ -8,6 +8,7 @@ import { api } from "@/../convex/_generated/api";
 
 import { Task } from "../types/task";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
+import { toast } from "sonner";
 
 interface TaskFormProps {
   task?: Task;
@@ -18,7 +19,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
   const params = useParams();
   const workspaceId = params?.workspaceId as string | undefined;
 
-  const currentUser = useCurrentUser();
+  const { data: user, isLoading: isUserLoading } = useCurrentUser();
 
   const [title, setTitle] = useState(task?.title || "");
   const [description, setDescription] = useState(task?.description || "");
@@ -47,34 +48,44 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
       console.error("Missing workspaceId from URL");
       return;
     }
-    if (!currentUser?._id) {
+    if (!user?._id) {
       console.error("User is not logged in");
       return;
     }
 
-    const data = {
-      title,
-      description,
-      priority,
-      dueDate,
-      assignedTo: assignedTo || undefined,
-      subtasks,
-      workspaceId: workspaceId as Id<"workspaces">,
-      createdBy: currentUser._id as Id<"users">,
-    };
+    try {
+      if (task?._id) {
+        await updateTask({
+          id: task._id as Id<"tasks">,
+          title,
+          description,
+          priority,
+          dueDate,
+          assignedTo: assignedTo || undefined,
+          subtasks,
+        });
+        toast.success("Task updated");
+      } else {
+        await createTask({
+          title,
+          description,
+          priority,
+          dueDate,
+          assignedTo: assignedTo || undefined,
+          subtasks,
+          workspaceId: workspaceId as Id<"workspaces">,
+        });
+        toast.success("Task created");
+      }
 
-    if (task?._id) {
-      // @ts-ignore - Convex generated types might mismatch slightly on undefined/optional
-      await updateTask({ id: task._id as Id<"tasks">, ...data });
-    } else {
-      // @ts-ignore
-      await createTask(data);
+      onSuccess?.();
+    } catch (error) {
+      console.error("Task action failed:", error);
+      toast.error("Failed to save task. Please check if the assigned user is a member of this workspace.");
     }
-
-    onSuccess?.();
   };
 
-  const isLoading = !workspaceId || !currentUser;
+  const isLoading = !workspaceId || isUserLoading;
 
   return (
     <form
@@ -139,7 +150,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
             <select
               className="w-full border rounded-md p-2 text-sm bg-background text-foreground"
               value={assignedTo}
-              onChange={(e) => setAssignedTo(e.target.value as Id<"users">)}
+              onChange={(e) => setAssignedTo(e.target.value as Id<"users"> | "")}
             >
               <option value="">Unassigned</option>
               {members?.map(m => (

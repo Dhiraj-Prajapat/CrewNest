@@ -4,8 +4,7 @@ import React from "react";
 import { Task } from "../types/task";
 import { formatDate } from "../utils/formatDate";
 import { cn } from "@/lib/utils";
-<<<<<<< HEAD
-import { Check, MoreHorizontal, Trash, User } from "lucide-react";
+import { Check, MoreHorizontal, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -20,8 +19,6 @@ import { api } from "@/../convex/_generated/api";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
-=======
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
 
 interface TaskCardProps {
   task: Task;
@@ -29,7 +26,6 @@ interface TaskCardProps {
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
-<<<<<<< HEAD
   const updateTask = useMutation(api.tasks.update);
   const removeTask = useMutation(api.tasks.remove);
 
@@ -43,6 +39,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
       toast.success("Task deleted");
     } catch (error) {
       toast.error("Failed to delete task");
+      console.error("Failed to delete task", error);
     }
   };
 
@@ -53,6 +50,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
       toast.success(task.completed ? "Task marked active" : "Task completed");
     } catch (error) {
       toast.error("Failed to update task");
+      console.error("Failed to update task", error);
     }
   };
 
@@ -62,11 +60,9 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
       toast.success("Priority updated");
     } catch (error) {
       toast.error("Failed to update priority");
+      console.error("Failed to update priority", error);
     }
   };
-
-=======
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
   const dueDateText = task.dueDate
     ? formatDate(new Date(task.dueDate))
     : "No due date";
@@ -74,7 +70,6 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
   return (
     <div
       className={cn(
-<<<<<<< HEAD
         "border rounded-lg p-4 bg-card hover:bg-accent/50 transition-colors cursor-pointer space-y-3 relative group",
         task.completed && "opacity-60 bg-muted/50",
         task.priority === "high"
@@ -153,8 +148,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
       )}
 
       {/* Footer Info */}
-      <div className="flex items-center justify-between pt-2 pl-7 text-xs text-muted-foreground">
-        <div className="flex items-center justify-between pt-2 border-t mt-2">
+      <div className="flex flex-col gap-2 pt-2 pl-7 text-xs text-muted-foreground border-t mt-2">
+        <div className="flex items-center justify-between">
           {/* Assigned User */}
           {task.assignedToUser ? (
             <div className="flex items-center gap-2" title={`Assigned to ${task.assignedToUser.name}`}>
@@ -170,13 +165,17 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
             <span className="text-xs text-muted-foreground italic">Unassigned</span>
           )}
 
-          {/* Subtasks Count */}
-          {task.subtasks && task.subtasks.length > 0 && (
-            <div className="text-xs text-muted-foreground flex items-center gap-1">
-              <span className="font-medium">{task.subtasks.length}</span> subtasks
-            </div>
-          )}
+          {/* Creation Date */}
+          <div className="flex flex-col items-end gap-0.5">
+            <span className="text-[10px] opacity-70">Created: {formatDate(new Date(task.createdAt))}</span>
+            {task.dueDate && (
+              <span className="font-medium text-primary/80">
+                Due: {dueDateText}
+              </span>
+            )}
+          </div>
         </div>
       </div>
-      );
+    </div>
+  );
 };

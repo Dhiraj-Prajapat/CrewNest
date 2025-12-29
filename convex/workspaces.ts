@@ -26,7 +26,7 @@ export const join = mutation({
 
     if (!workspace) throw new Error("Workspace not found.");
 
-    if (workspace.joinCode !== args.joinCode.toLowerCase())
+    if (workspace.joinCode !== args.joinCode.trim().toLowerCase())
       throw new Error("Invalid join code.");
 
     const existingMember = await ctx.db
@@ -60,7 +60,7 @@ export const joinByCode = mutation({
 
     const workspace = await ctx.db
       .query("workspaces")
-      .withIndex("by_join_code", (q) => q.eq("joinCode", args.joinCode.toLowerCase()))
+      .withIndex("by_join_code", (q) => q.eq("joinCode", args.joinCode.trim().toLowerCase()))
       .unique();
 
     if (!workspace) throw new Error("Workspace not found or invalid code.");
@@ -100,7 +100,8 @@ export const newJoinCode = mutation({
       )
       .unique();
 
-    if (!member || member.role !== "admin") throw new Error("Unauthorized.");
+    if (!member) throw new Error("Unauthorized: Member not found.");
+    if (member.role !== "admin") throw new Error("Unauthorized: Regular member cannot perform this action.");
 
     const joinCode = generateCode();
 

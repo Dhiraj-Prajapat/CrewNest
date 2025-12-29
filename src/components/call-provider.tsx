@@ -37,16 +37,16 @@
 // export const CallProvider = () => {
 //   const pathname = usePathname();
 //   const { callState } = useCallState();
-  
+
 //   // Only get workspaceId if we're in a workspace route
 //   const workspaceId = pathname.includes('/workspace/') ? useWorkspaceId() : null;
-  
+
 //   // Listen for incoming calls
 //   const { data: incomingCalls } = useIncomingCalls(workspaceId as any);
-  
+
 //   // Get the first incoming call (you can enhance this logic)
 //   const incomingCall = incomingCalls?.[0] || null;
-  
+
 //   const [dismissedCallId, setDismissedCallId] = useState<string | null>(null);
 
 //   // Reset dismissed call when a new call comes in
@@ -95,19 +95,19 @@
 // export const CallProvider = () => {
 //   const pathname = usePathname();
 //   const { callState } = useCallState();
-  
+
 //   // Always call the hook, but conditionally use the result
 //   const rawWorkspaceId = useWorkspaceId();
-  
+
 //   // Only use workspaceId if we're in a workspace route
 //   const workspaceId = pathname.includes('/workspace/') ? rawWorkspaceId : null;
-  
+
 //   // Listen for incoming calls - pass "skip" if no workspaceId
 //   const { data: incomingCalls } = useIncomingCalls(workspaceId || "skip" as any);
-  
+
 //   // Get the first incoming call, but only if we have a valid workspaceId
 //   const incomingCall = (workspaceId && incomingCalls?.[0]) || null;
-  
+
 //   const [dismissedCallId, setDismissedCallId] = useState<string | null>(null);
 
 //   // Reset dismissed call when a new call comes in
@@ -162,40 +162,40 @@ import { usePathname } from "next/navigation";
 export const CallProvider = () => {
   const pathname = usePathname();
   const { callState } = useCallState();
-  
+
   // Always call the hook, but conditionally use the result
   const rawWorkspaceId = useWorkspaceId();
-  
+
   // Only use workspaceId if we're in a workspace route
   const workspaceId = pathname.includes('/workspace/') ? rawWorkspaceId : null;
-  
+
   // Listen for incoming calls - pass "skip" if no workspaceId
-  const { data: incomingCalls } = useIncomingCalls(workspaceId || "skip" as any);
-  
+  const { data: incomingCalls } = useIncomingCalls(workspaceId);
+
   // Cleanup mutation
   const cleanupExpiredCalls = useMutation(api.calls.cleanupExpiredCalls);
-  
+
   // Get the first incoming call, but only if we have a valid workspaceId
   const incomingCall = (workspaceId && incomingCalls?.[0]) || null;
-  
+
   const [dismissedCallId, setDismissedCallId] = useState<string | null>(null);
   const [forceDismissed, setForceDismissed] = useState<Set<string>>(new Set());
 
   // Cleanup expired calls periodically
   useEffect(() => {
     if (!workspaceId) return;
-    
+
     const cleanup = () => {
       cleanupExpiredCalls({ workspaceId })
         .catch(error => console.error("Failed to cleanup calls:", error));
     };
-    
+
     // Run cleanup every 30 seconds
     const interval = setInterval(cleanup, 30000);
-    
+
     // Run cleanup immediately
     cleanup();
-    
+
     return () => clearInterval(interval);
   }, [workspaceId, cleanupExpiredCalls]);
 
@@ -211,7 +211,7 @@ export const CallProvider = () => {
     if (incomingCall) {
       const callAge = Date.now() - incomingCall.createdAt;
       const twoMinutes = 2 * 60 * 1000; // 2 minutes in milliseconds
-      
+
       if (callAge > twoMinutes) {
         setForceDismissed(prev => new Set([...prev, incomingCall._id]));
       }
@@ -223,9 +223,9 @@ export const CallProvider = () => {
   // - Call is dismissed 
   // - User is already in a call
   // - Call is force dismissed
-  const shouldShowIncomingCall = workspaceId && 
-    incomingCall && 
-    !callState.isInCall && 
+  const shouldShowIncomingCall = workspaceId &&
+    incomingCall &&
+    !callState.isInCall &&
     incomingCall._id !== dismissedCallId &&
     !forceDismissed.has(incomingCall._id);
 

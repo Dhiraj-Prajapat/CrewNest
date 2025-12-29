@@ -82,6 +82,10 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
     image: File | null;
   }) => {
     try {
+      if (!workspaceId) {
+        return;
+      }
+
       setIsPending(true);
       innerRef.current?.enable(false);
 
@@ -118,6 +122,7 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
       setEditorKey((prevKey) => prevKey + 1);
     } catch (error) {
       toast.error("Failed to send message.");
+      console.log(error);
     } finally {
       setIsPending(false);
       innerRef?.current?.enable(true);

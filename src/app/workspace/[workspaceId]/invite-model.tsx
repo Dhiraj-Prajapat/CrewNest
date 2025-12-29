@@ -9,15 +9,19 @@ import { useNewJoinCode } from '@/features/workspaces/api/use-new-join-code';
 import { useConfirm } from '@/hooks/use-confirm';
 import { useWorkspaceId } from '@/hooks/use-workspace-id';
 
+import { Id } from '@/../convex/_generated/dataModel';
+
 interface InviteModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   name: string;
   joinCode: string;
+  workspaceId?: Id<'workspaces'> | null;
 }
 
-export const InviteModal = ({ open, setOpen, name, joinCode }: InviteModalProps) => {
-  const workspaceId = useWorkspaceId();
+export const InviteModal = ({ open, setOpen, name, joinCode, workspaceId: propWorkspaceId }: InviteModalProps) => {
+  const hookWorkspaceId = useWorkspaceId();
+  const workspaceId = propWorkspaceId || hookWorkspaceId;
   const [ConfirmDialog, confirm] = useConfirm('Are you sure?', 'This will deactivate the current invite code and generate a new one.');
 
   const { mutate, isPending } = useNewJoinCode();
@@ -28,6 +32,8 @@ export const InviteModal = ({ open, setOpen, name, joinCode }: InviteModalProps)
     if (!ok) return;
 
 
+
+    if (!workspaceId) return;
 
     mutate(
       {

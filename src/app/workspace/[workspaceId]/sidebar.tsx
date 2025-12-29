@@ -1,4 +1,4 @@
-```typescript
+
 import { Home, MessageSquare, MoreHorizontal, UserPlus, HashIcon, ClipboardList } from "lucide-react";
 import { UserButton } from "@/features/auth/components/user-button";
 import { WorkspaceSwitcher } from "./workspace-switcher";
@@ -12,35 +12,38 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { JoinWorkspaceModal } from "@/components/modals/join-workspace-modal";
-import InviteModal from "@/components/modals/invite-modal"; // Ensure this import path is correct
-import SettingsModal from "@/components/modals/settings-modal";
+// import SettingsModal from "@/components/modals/settings-modal";
+import { InviteModal } from "./invite-model";
+import { JoinWorkspaceModal } from "./join-workspace-modal";
+import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 
 export const Sidebar = () => {
   const pathname = usePathname();
   const workspaceId = useWorkspaceId();
   const [inviteOpen, setInviteOpen] = useState(false);
   const [joinOpen, setJoinOpen] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  // const [settingsOpen, setSettingsOpen] = useState(false);
+
+  const { data: workspace } = useGetWorkspace({ id: workspaceId });
 
   return (
     <aside
       id="tour-main-sidebar"
-      className="w-[70px] h-full bg-[#481349] flex flex-col gap-y-4 items-center pt-[9px] pb-4"
+      className="w-[70px] h-full bg-[#004030] flex flex-col gap-y-4 items-center pt-[9px] pb-4"
     >
       <WorkspaceSwitcher />
       <SidebarButton
         icon={Home}
         label="Home"
-        href={`/ workspace / ${ workspaceId } `}
+        href={`/workspace/${workspaceId}`}
         isActive={pathname.includes("/workspace") && !pathname.includes("/member") && !pathname.includes("/dms") && !pathname.includes("/tasks")}
       />
       <SidebarButton
         icon={MessageSquare}
         label="DMs"
-        href={`/ workspace / ${ workspaceId }/dms`}
-isActive = { pathname.includes("/member") || pathname.includes("/dms") }
-  />
+        href={`/workspace/${workspaceId}/dms`}
+        isActive={pathname.includes("/member") || pathname.includes("/dms")}
+      />
 
       <SidebarButton
         icon={ClipboardList}
@@ -64,11 +67,11 @@ isActive = { pathname.includes("/member") || pathname.includes("/dms") }
             <HashIcon className="size-4 mr-2" />
             Join Workflow
           </DropdownMenuItem>
-           <DropdownMenuItem onClick={() => setSettingsOpen(true)}>
+          {/* <DropdownMenuItem onClick={() => setSettingsOpen(true)}>
             <div className="flex items-center">
-             Settings
-             </div>
-          </DropdownMenuItem>
+              Settings
+            </div>
+          </DropdownMenuItem> */}
         </DropdownMenuContent>
       </DropdownMenu>
 
@@ -76,24 +79,23 @@ isActive = { pathname.includes("/member") || pathname.includes("/dms") }
         <UserButton />
       </div>
 
-      <InviteModal 
-        open={inviteOpen} 
-        setOpen={setInviteOpen} 
-        name="Workspace" 
-        joinCode="123456" 
+      <InviteModal
+        open={inviteOpen}
+        setOpen={setInviteOpen}
+        name={workspace?.name || "Workspace"}
+        joinCode={workspace?.joinCode || ""}
         workspaceId={workspaceId}
       />
-      
-      <JoinWorkspaceModal 
-        open={joinOpen} 
-        setOpen={setJoinOpen} 
+
+      <JoinWorkspaceModal
+        open={joinOpen}
+        setOpen={setJoinOpen}
       />
 
-      <SettingsModal 
+      {/* <SettingsModal
         isOpen={settingsOpen}
         onClose={() => setSettingsOpen(false)}
-      />
+      /> */}
     </aside >
   );
 };
-```

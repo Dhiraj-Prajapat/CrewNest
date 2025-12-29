@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Check, Trash } from "lucide-react";
+import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     Popover,
@@ -20,13 +20,14 @@ export const NotificationsPopover = () => {
     const router = useRouter();
     const [open, setOpen] = useState(false);
 
-    const notifications = useQuery(api.notifications.get, { workspaceId });
+    const notifications = useQuery(api.notifications.get, workspaceId ? { workspaceId } : "skip");
     const markRead = useMutation(api.notifications.markRead);
     const clearAll = useMutation(api.notifications.clearAll);
 
     // Calculate unread count (since backend returns all, we filter here for badge, or could use count query)
     const unreadCount = notifications?.filter(n => !n.isRead).length || 0;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleNotificationClick = async (notif: any) => {
         setOpen(false);
         // Mark as read
@@ -50,10 +51,11 @@ export const NotificationsPopover = () => {
     };
 
     const handleClearAll = async () => {
+        if (!workspaceId) return;
         try {
             await clearAll({ workspaceId });
             toast.success("Notifications cleared");
-        } catch (error) {
+        } catch {
             toast.error("Failed to clear notifications");
         }
     }

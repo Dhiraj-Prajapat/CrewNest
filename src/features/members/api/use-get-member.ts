@@ -28,13 +28,13 @@ import { api } from '@/../convex/_generated/api';
 import type { Id } from '@/../convex/_generated/dataModel';
 
 interface UseGetMemberProps {
-  id: Id<'members'>;
+  id: Id<'members'> | null;
 }
 
 export const useGetMember = ({ id }: UseGetMemberProps) => {
   // Skip the query if id is invalid or "skip"
   const data = useQuery(
-    api.members.getById, 
+    api.members.getById,
     id && id !== "skip" ? { id } : "skip"
   );
 

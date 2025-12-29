@@ -50,6 +50,8 @@ export const ChatInput = ({ placeholder, conversationId }: ChatInputProps) => {
     body: string;
     image: File | null;
   }) => {
+    if (!workspaceId) return;
+
     try {
       setIsPending(true);
       innerRef.current?.enable(false);
@@ -63,7 +65,7 @@ export const ChatInput = ({ placeholder, conversationId }: ChatInputProps) => {
 
       if (image) {
         const url = await generateUploadUrl(
-          { throwError : true },
+          { throwError: true },
         );
 
         if (!url) throw new Error("URL not found.");
@@ -86,6 +88,7 @@ export const ChatInput = ({ placeholder, conversationId }: ChatInputProps) => {
       setEditorKey((prevKey) => prevKey + 1);
     } catch (error) {
       toast.error("Failed to send message.");
+      console.log(error);
     } finally {
       setIsPending(false);
       innerRef?.current?.enable(true);

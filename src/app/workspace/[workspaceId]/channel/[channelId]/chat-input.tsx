@@ -45,6 +45,8 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
   const { mutate: generateUploadUrl } = useGenerateUploadUrl();
 
   const handleSubmit = async ({ body, image }: { body: string; image: File | null }) => {
+    if (!workspaceId) return;
+
     try {
       setIsPending(true);
       innerRef.current?.enable(false);
@@ -84,6 +86,7 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
       setEditorKey((prevKey) => prevKey + 1);
     } catch (error) {
       toast.error('Failed to send message.');
+      console.log(error);
     } finally {
       setIsPending(false);
       innerRef?.current?.enable(true);

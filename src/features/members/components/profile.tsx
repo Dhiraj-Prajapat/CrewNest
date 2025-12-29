@@ -2,9 +2,6 @@
 
 import { AlertTriangle, ChevronDown, Loader, MailIcon, XIcon } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-
 import type { Id } from '@/../convex/_generated/dataModel';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -22,8 +19,8 @@ import { useWorkspaceId } from '@/hooks/use-workspace-id';
 
 import { useCurrentMember } from '../api/use-current-member';
 import { useGetMember } from '../api/use-get-member';
-import { useUpdateMember } from '../api/use-update-member';
-import { useRemoveMember } from '../api/use-remove-member';
+// import { useUpdateMember } from '../api/use-update-member';
+// import { useRemoveMember } from '../api/use-remove-member';
 
 interface ProfileProps {
   memberId: Id<'members'>;
@@ -31,7 +28,7 @@ interface ProfileProps {
 }
 
 export const Profile = ({ memberId, onClose }: ProfileProps) => {
-  const router = useRouter();
+  // const router = useRouter();
   const workspaceId = useWorkspaceId();
 
   const [LeaveDialog, confirmLeave] = useConfirm('Leave workspace', 'Are you sure you want to leave this workspace?');
@@ -43,24 +40,24 @@ export const Profile = ({ memberId, onClose }: ProfileProps) => {
   });
   const { data: member, isLoading: isMemberLoading } = useGetMember({ id: memberId });
 
-  const { mutate: updateMember, isPending: isUpdatingMember } = useUpdateMember();
-  const { mutate: removeMember, isPending: isRemovingMember } = useRemoveMember();
+  // const { mutate: updateMember, isPending: isUpdatingMember } = useUpdateMember();
+  // const { mutate: removeMember, isPending: isRemovingMember } = useRemoveMember();
 
   const onRemove = async () => {
     const ok = await confirmRemove();
 
     if (!ok) return;
 
-    removeMember(
-      { id: memberId },
-      {
-        onSuccess: () => {
-          toast.success('Member removed.');
-          onClose();
-        },
-        onError: () => toast.error('Failed to remove member.'),
-      },
-    );
+    // removeMember(
+    //   { id: memberId },
+    //   {
+    //     onSuccess: () => {
+    //       toast.success('Member removed.');
+    //       onClose();
+    //     },
+    //     onError: () => toast.error('Failed to remove member.'),
+    //   },
+    // );
   };
 
   const onLeave = async () => {
@@ -68,17 +65,17 @@ export const Profile = ({ memberId, onClose }: ProfileProps) => {
 
     if (!ok) return;
 
-    removeMember(
-      { id: memberId },
-      {
-        onSuccess: () => {
-          toast.success('You left the workspace.');
-          router.replace('/');
-          onClose();
-        },
-        onError: () => toast.error('Failed to leave the workspace.'),
-      },
-    );
+    // removeMember(
+    //   { id: memberId },
+    //   {
+    //     onSuccess: () => {
+    //       toast.success('You left the workspace.');
+    //       router.replace('/');
+    //       onClose();
+    //     },
+    //     onError: () => toast.error('Failed to leave the workspace.'),
+    //   },
+    // );
   };
 
   const onUpdate = async (role: 'admin' | 'member') => {
@@ -88,15 +85,15 @@ export const Profile = ({ memberId, onClose }: ProfileProps) => {
 
     if (!ok) return;
 
-    updateMember(
-      { id: memberId, role },
-      {
-        onSuccess: () => {
-          toast.success('Role changed.');
-        },
-        onError: () => toast.error('Failed to change role.'),
-      },
-    );
+    // updateMember(
+    //   { id: memberId, role },
+    //   {
+    //     onSuccess: () => {
+    //       toast.success('Role changed.');
+    //     },
+    //     onError: () => toast.error('Failed to change role.'),
+    //   },
+    // );
   };
 
   if (isMemberLoading || isCurrentMemberLoading) {
@@ -154,9 +151,8 @@ export const Profile = ({ memberId, onClose }: ProfileProps) => {
         </div>
 
         <div className="flex flex-col items-center justify-center p-4">
-          <Avatar className="size-full max-h-[256px] max-w-[256px] border border-gray-400 ">
+          <Avatar className="size-full max-h-[130px] max-w-[130px] border border-gray-400 ">
             <AvatarImage src={member.user.image} />
-
             <AvatarFallback className="aspect-square text-7xl">{avatarFallback}</AvatarFallback>
           </Avatar>
         </div>

@@ -21,14 +21,16 @@ const JoinPage = () => {
   const { mutate, isPending } = useJoin();
   const { data, isLoading } = useGetWorkspaceInfo({ id: workspaceId });
 
-    const isMember = useMemo(() => data?.isMember, [data?.isMember]);
-    useEffect(() => {
-        if(isMember){
-            router.push(`/workspace/${workspaceId}`)
-        }
-    }, [isMember, router, workspaceId]);
+  const isMember = useMemo(() => data?.isMember, [data?.isMember]);
+  useEffect(() => {
+    if (isMember) {
+      router.push(`/workspace/${workspaceId}`)
+    }
+  }, [isMember, router, workspaceId]);
 
   const handleComplete = (value: string) => {
+    if (!workspaceId) return;
+
     mutate(
       { workspaceId, joinCode: value },
       {

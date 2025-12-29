@@ -319,7 +319,3 @@ export default defineSchema({
 //     leftAt: v.optional(v.number()),
 //   }).index("by_callId", ["callId"]),
 // });
-
-
-
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848

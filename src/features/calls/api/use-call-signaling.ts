@@ -215,7 +215,7 @@ export const useActiveCall = ({
 };
 
 // Hook to get incoming calls for a workspace (used in CallProvider)
-export const useIncomingCalls = (workspaceId: Id<"workspaces"> | "skip") => {
+export const useIncomingCalls = (workspaceId: Id<"workspaces"> | "skip" | null) => {
   const data = useQuery(
     api.calls.getIncomingCalls,
     workspaceId && workspaceId !== "skip" ? { workspaceId } : "skip"
@@ -234,6 +234,7 @@ export const useCleanupExpiredCalls = () => {
         await mutation({ workspaceId });
       } catch (error) {
         // Silently ignore cleanup errors
+        console.log(error);
       }
     },
     [mutation]

@@ -163,7 +163,7 @@
 //   const { data: initiator } = useGetMember({ 
 //     id: call?.initiatorId || "skip" as any // Use "skip" to avoid calling with empty string
 //   });
-  
+
 //   const { mutate: joinCall } = useJoinCall();
 //   const { setIsInCall, setActiveCall } = useCallState();
 //   const [isRinging, setIsRinging] = useState(false);
@@ -297,7 +297,7 @@
 //   const { data: initiator } = useGetMember({ 
 //     id: call?.initiatorId || "skip" as any
 //   });
-  
+
 //   const { mutate: joinCall } = useJoinCall();
 //   const { mutate: endCall } = useEndCall();
 //   const { setIsInCall, setActiveCall } = useCallState();
@@ -441,7 +441,7 @@
 //   onDecline,
 // }: IncomingCallDialogProps) => {
 //   const { data: initiator } = useGetMember({
-//     id: call?.initiatorId || ("skip" as any),
+//     id: call?.initiatorId || null,
 //   });
 
 //   const { mutate: joinCall } = useJoinCall();
@@ -588,7 +588,7 @@ export const IncomingCallDialog = ({
   onDecline,
 }: IncomingCallDialogProps) => {
   const { data: initiator } = useGetMember({
-    id: call?.initiatorId || ("skip" as any),
+    id: call?.initiatorId || null,
   });
 
   const { mutate: joinCall } = useJoinCall();

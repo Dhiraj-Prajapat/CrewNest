@@ -257,10 +257,7 @@ export const create = mutation({
 
     // if (!userId) throw new Error("Unauthorized."); // replaced with below 5 lines
     if (!userId) {
-      return {
-        page: [],
-        continueCursor: null,
-      };
+      return null;
     }
 
     const member = await getMember(ctx, args.workspaceId, userId);
