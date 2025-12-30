@@ -5,7 +5,7 @@ import type { IconType } from 'react-icons/lib';
 
 import type { Id } from '@/../convex/_generated/dataModel';
 import { Button } from '@/components/ui/button';
-import { useWorkspaceId } from '@/hooks/use-workspace-id';
+import { useWorkspaceId } from '@/hooks/useWorkspaceId';
 import { cn } from '@/lib/utils';
 
 const sidebarItemVariants = cva('flex items-center gap-1.5 justify-start font-normal h-7 px-[18px] text-sm overflow-hidden', {

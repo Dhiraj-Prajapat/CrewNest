@@ -2,7 +2,7 @@ import { MessageSquareText, Pencil, Smile, Trash } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
-import { EmojiPopover } from './emoji-popover';
+import { EmojiPopover } from './emojiPopover';
 import { Hint } from './hint';
 
 interface ToolbarProps {

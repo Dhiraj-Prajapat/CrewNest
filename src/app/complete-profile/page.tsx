@@ -1,4 +1,4 @@
-import UserDetailsForm from "@/features/auth/components/user-details-form";
+import UserDetailsForm from "@/features/auth/components/userDetailsForm";
 
 export default function CompleteProfilePage() {
   return <UserDetailsForm/>;

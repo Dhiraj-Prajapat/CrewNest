@@ -7,11 +7,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { useCreateChannelModel } from "../Store/use-create-channel-model";
-import { useCreateChannel } from "../api/use-create-channel";
+import { useCreateChannelModel } from "../Store/useCreateChannelModel";
+import { useCreateChannel } from "../api/useCreateChannel";
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useWorkspaceId } from "@/hooks/useWorkspaceId";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 

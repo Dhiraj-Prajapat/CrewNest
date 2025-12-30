@@ -1,13 +1,13 @@
 import { Loader } from 'lucide-react';
 
 import type { Id } from '@/../convex/_generated/dataModel';
-import { MessageList } from '@/components/message-list';
-import { useGetMember } from '@/features/members/api/use-get-member';
-import { useGetMessages } from '@/features/messages/api/use-get-messages';
-import { useMemberId } from '@/hooks/use-member-id';
-import { usePanel } from '@/hooks/use-panel';
+import { MessageList } from '@/components/messageList';
+import { useGetMember } from '@/features/members/api/useGetMember';
+import { useGetMessages } from '@/features/messages/api/useGetMessages';
+import { useMemberId } from '@/hooks/useMemberId';
+import { usePanel } from '@/hooks/usePanel';
 
-import { ChatInput } from './chat-input';
+import { ChatInput } from './chatInput';
 import { Header } from './header';
 
 interface ConversationProps {

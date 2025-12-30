@@ -206,12 +206,12 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { useRemoveChannel } from '@/features/channels/api/use-remove-channel';
-import { useUpdateChannel } from '@/features/channels/api/use-update-channel';
-import { useCurrentMember } from '@/features/members/api/use-current-member';
-import { useChannelId } from '@/hooks/use-channel-id';
-import { useConfirm } from '@/hooks/use-confirm';
-import { useWorkspaceId } from '@/hooks/use-workspace-id';
+import { useRemoveChannel } from '@/features/channels/api/useRemoveChannel';
+import { useUpdateChannel } from '@/features/channels/api/useUpdateChannel';
+import { useCurrentMember } from '@/features/members/api/useCurrentMember';
+import { useChannelId } from '@/hooks/useChannelId';
+import { useConfirm } from '@/hooks/useConfirm';
+import { useWorkspaceId } from '@/hooks/useWorkspaceId';
 // import { CallButton } from '@/features/calls/components/CallButton';
 
 interface HeaderProps {

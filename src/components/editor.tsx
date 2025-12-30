@@ -11,7 +11,7 @@ import { MdSend } from 'react-icons/md';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-import { EmojiPopover } from './emoji-popover';
+import { EmojiPopover } from './emojiPopover';
 import { Hint } from './hint';
 
 type EditorValue = {

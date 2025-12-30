@@ -2,10 +2,10 @@ import { Loader, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
-import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
-import { useCreateWorkspaceModel } from "@/features/workspaces/store/use-create-workspace-model";
+import { useWorkspaceId } from "@/hooks/useWorkspaceId";
+import { useGetWorkspaces } from "@/features/workspaces/api/useGetWorkspaces";
+import { useGetWorkspace } from "@/features/workspaces/api/useGetWorkspace";
+import { useCreateWorkspaceModel } from "@/features/workspaces/store/useCreateWorkspaceModel";
 
 import {
   DropdownMenu,

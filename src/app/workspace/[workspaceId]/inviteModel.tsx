@@ -5,9 +5,9 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { useNewJoinCode } from '@/features/workspaces/api/use-new-join-code';
-import { useConfirm } from '@/hooks/use-confirm';
-import { useWorkspaceId } from '@/hooks/use-workspace-id';
+import { useNewJoinCode } from '@/features/workspaces/api/useNewJoinCode';
+import { useConfirm } from '@/hooks/useConfirm';
+import { useWorkspaceId } from '@/hooks/useWorkspaceId';
 
 import { Id } from '@/../convex/_generated/dataModel';
 

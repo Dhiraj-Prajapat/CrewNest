@@ -2,8 +2,8 @@
 
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { useCurrentMember } from "@/features/members/api/use-current-member";
+import { useWorkspaceId } from "@/hooks/useWorkspaceId";
+import { useCurrentMember } from "@/features/members/api/useCurrentMember";
 import { useQuery } from "convex/react";
 import { api } from "@/../convex/_generated/api";
 import { motion } from "framer-motion";

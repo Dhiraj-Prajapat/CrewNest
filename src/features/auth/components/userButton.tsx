@@ -4,7 +4,7 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { useRouter } from "next/navigation";
 import { Loader, LogOut, Settings, User } from "lucide-react";
 
-import { useCurrentUser } from "../api/use-current-user";
+import { useCurrentUser } from "../api/useCurrentUser";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import {
@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { useState } from "react";
-import SettingsModal from "@/components/modals/settings-modal";
+import SettingsModal from "@/components/modals/settingsModal";
 // import { SettingsModal } from "@/components/modals/settings-modal";
 
 export const UserButton = () => {
@@ -30,7 +30,7 @@ export const UserButton = () => {
   if (isLoading)
     return <Loader className="size-4 animate-spin text-muted-foreground" />;
   if (!data) return null;
-  
+
 
   const { image, name, email } = data;
   const avatarFallback = name?.charAt(0).toUpperCase();
@@ -71,7 +71,7 @@ export const UserButton = () => {
             onClick={async () => {
               await signOut();
               // router.replace("/auth");
-                window.location.href = "/auth";
+              window.location.href = "/auth";
             }}
             className="cursor-pointer text-red-600"
           >

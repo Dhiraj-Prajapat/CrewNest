@@ -4,18 +4,18 @@ import dynamic from 'next/dynamic';
 import { toast } from 'sonner';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useUpdateMessage } from '@/features/messages/api/use-update-message';
-import { useRemoveMessage } from '@/features/messages/api/use-remove-message';
-import { useToggleReaction } from '@/features/reactions/api/use-toggle-reaction';
+import { useUpdateMessage } from '@/features/messages/api/useUpdateMessage';
+import { useRemoveMessage } from '@/features/messages/api/useRemoveMessage';
+import { useToggleReaction } from '@/features/reactions/api/useToggleReaction';
 
-import { useConfirm } from '@/hooks/use-confirm';
-import { usePanel } from '@/hooks/use-panel';
+import { useConfirm } from '@/hooks/useConfirm';
+import { usePanel } from '@/hooks/usePanel';
 import { cn } from '@/lib/utils';
 
 import type { Doc, Id } from '../../convex/_generated/dataModel';
 import { Hint } from './hint';
 import { Reactions } from './reactions';
-import { ThreadBar } from './thread-bar';
+import { ThreadBar } from './threadBar';
 import { Thumbnail } from './thumbnail';
 import { Toolbar } from './toolbar';
 

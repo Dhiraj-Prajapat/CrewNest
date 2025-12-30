@@ -1,11 +1,11 @@
 import { MdOutlineAddReaction } from 'react-icons/md';
 
-import { useCurrentMember } from '@/features/members/api/use-current-member';
-import { useWorkspaceId } from '@/hooks/use-workspace-id';
+import { useCurrentMember } from '@/features/members/api/useCurrentMember';
+import { useWorkspaceId } from '@/hooks/useWorkspaceId';
 import { cn } from '@/lib/utils';
 
 import type { Doc, Id } from '../../convex/_generated/dataModel';
-import { EmojiPopover } from './emoji-popover';
+import { EmojiPopover } from './emojiPopover';
 import { Hint } from './hint';
 
 interface ReactionsProps {

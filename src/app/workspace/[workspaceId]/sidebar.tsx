@@ -1,10 +1,10 @@
 
 import { Home, MessageSquare, MoreHorizontal, UserPlus, HashIcon, ClipboardList } from "lucide-react";
-import { UserButton } from "@/features/auth/components/user-button";
-import { WorkspaceSwitcher } from "./workspace-switcher";
-import { SidebarButton } from "./sidebar-button";
+import { UserButton } from "@/features/auth/components/userButton";
+import { WorkspaceSwitcher } from "./workspaceSwitcher";
+import { SidebarButton } from "./sidebarButton";
 import { usePathname } from "next/navigation";
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useWorkspaceId } from "@/hooks/useWorkspaceId";
 import { useState } from "react";
 import {
   DropdownMenu,
@@ -13,9 +13,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 // import SettingsModal from "@/components/modals/settings-modal";
-import { InviteModal } from "./invite-model";
-import { JoinWorkspaceModal } from "./join-workspace-modal";
-import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
+import { InviteModal } from "./inviteModel";
+import { JoinWorkspaceModal } from "./joinWorkspaceModal";
+import { useGetWorkspace } from "@/features/workspaces/api/useGetWorkspace";
 
 export const Sidebar = () => {
   const pathname = usePathname();

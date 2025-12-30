@@ -14,8 +14,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { InviteModal } from './invite-model';
-import { PreferencesModel } from './preferences-model';
+import { InviteModal } from './inviteModel';
+import { PreferencesModel } from './preferencesModel';
 
 interface WorkspaceHeaderProps {
   workspace: Doc<'workspaces'>;

@@ -42,9 +42,9 @@ import { Button } from '@/components/ui/button';
 
 import type { Id } from '@/../convex/_generated/dataModel';
 import { CallButton } from '@/features/calls/components/CallButton';
-import { useWorkspaceId } from '@/hooks/use-workspace-id';
-import { useMemberId } from '@/hooks/use-member-id';
-import { useCreateOrGetConversation } from '@/features/conversations/api/use-create-or-get-conversation';
+import { useWorkspaceId } from '@/hooks/useWorkspaceId';
+import { useMemberId } from '@/hooks/useMemberId';
+import { useCreateOrGetConversation } from '@/features/conversations/api/useCreateOrGetConversation';
 
 interface HeaderProps {
   memberName?: string;

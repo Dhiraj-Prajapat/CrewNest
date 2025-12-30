@@ -14,11 +14,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { Separator } from '@/components/ui/separator';
-import { useConfirm } from '@/hooks/use-confirm';
-import { useWorkspaceId } from '@/hooks/use-workspace-id';
+import { useConfirm } from '@/hooks/useConfirm';
+import { useWorkspaceId } from '@/hooks/useWorkspaceId';
 
-import { useCurrentMember } from '../api/use-current-member';
-import { useGetMember } from '../api/use-get-member';
+import { useCurrentMember } from '../api/useCurrentMember';
+import { useGetMember } from '../api/useGetMember';
 // import { useUpdateMember } from '../api/use-update-member';
 // import { useRemoveMember } from '../api/use-remove-member';
 

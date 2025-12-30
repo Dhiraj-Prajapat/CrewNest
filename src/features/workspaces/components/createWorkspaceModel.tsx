@@ -14,8 +14,8 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import { useCreateWorkspace } from "../api/use-create-workspace";
-import { useCreateWorkspaceModel } from "../store/use-create-workspace-model";
+import { useCreateWorkspace } from "../api/useCreateWorkspace";
+import { useCreateWorkspaceModel } from "../store/useCreateWorkspaceModel";
 
 export const CreateWorkspaceModel = () => {
   const router = useRouter();
@@ -90,6 +90,6 @@ export const CreateWorkspaceModel = () => {
         </form>
       </DialogContent>
     </Dialog>
-    
+
   );
 };

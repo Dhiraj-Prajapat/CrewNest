@@ -7,7 +7,7 @@ import { Id } from "@/../convex/_generated/dataModel";
 import { api } from "@/../convex/_generated/api";
 
 import { Task } from "../types/task";
-import { useCurrentUser } from "@/features/auth/api/use-current-user";
+import { useCurrentUser } from "@/features/auth/api/useCurrentUser";
 import { toast } from "sonner";
 
 interface TaskFormProps {

@@ -1,16 +1,16 @@
 "use client";
 
 import { Loader, TriangleAlert } from "lucide-react";
-import { MessageList } from "@/components/message-list";
-import { useGetChannel } from "@/features/channels/api/use-get-channel";
-import { useGetMessages } from "@/features/messages/api/use-get-messages";
-import { useChannelId } from "@/hooks/use-channel-id";
+import { MessageList } from "@/components/messageList";
+import { useGetChannel } from "@/features/channels/api/useGetChannel";
+import { useGetMessages } from "@/features/messages/api/useGetMessages";
+import { useChannelId } from "@/hooks/useChannelId";
 
-import { ChatInput } from "./chat-input";
+import { ChatInput } from "./chatInput";
 import { Header } from "./header";
 
 export default function ChannelIdPage() {
-  const channelId = useChannelId(); 
+  const channelId = useChannelId();
 
   const { results, status, loadMore } = useGetMessages({ channelId });
   const { data: channel, isLoading: channelLoading } = useGetChannel({

@@ -3,13 +3,13 @@ import { ConvexAuthNextjsServerProvider } from '@convex-dev/auth/nextjs/server';
 import { Inter } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 
-import { ConvexClientProvider } from '@/components/convex-client-provider';
-import { JotaiProvider } from '@/components/jotai-provider';
-import { ModalProvider } from '@/components/model-provider';
+import { ConvexClientProvider } from '@/components/convexClientProvider';
+import { JotaiProvider } from '@/components/jotaiProvider';
+import { ModalProvider } from '@/components/modelProvider';
 import { Toaster } from '@/components/ui/sonner';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import AuthRedirect from '@/components/authRedirect';
-import { ThemeProvider } from '@/components/theme-provider'; // ✅ added
+import { ThemeProvider } from '@/components/themeProvider'; // ✅ added
 
 import './globals.css';
 // import { CallProvider } from '@/components/call-provider';

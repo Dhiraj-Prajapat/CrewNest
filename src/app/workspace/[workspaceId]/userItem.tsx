@@ -4,7 +4,7 @@ import Link from 'next/link';
 import type { Id } from '@/../convex/_generated/dataModel';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { useWorkspaceId } from '@/hooks/use-workspace-id';
+import { useWorkspaceId } from '@/hooks/useWorkspaceId';
 import { cn } from '@/lib/utils';
 
 const userItemVariants = cva('flex items-center gap-1.5 justify-start font-normal h-7 px-4 text-sm overflow-hidden', {

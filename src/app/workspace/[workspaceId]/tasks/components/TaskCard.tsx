@@ -18,7 +18,7 @@ import { useMutation } from "convex/react";
 import { api } from "@/../convex/_generated/api";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useCurrentUser } from "@/features/auth/api/use-current-user";
+import { useCurrentUser } from "@/features/auth/api/useCurrentUser";
 
 interface TaskCardProps {
   task: Task;

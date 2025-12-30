@@ -19,11 +19,11 @@ import {
 } from '@/components/ui/dialog';
 
 import { Input } from '@/components/ui/input';
-import { useConfirm } from '@/hooks/use-confirm';
-import { useWorkspaceId } from '@/hooks/use-workspace-id';
+import { useConfirm } from '@/hooks/useConfirm';
+import { useWorkspaceId } from '@/hooks/useWorkspaceId';
 
-import { useUpdateWorkspace } from '@/features/workspaces/api/use-update-workspace';
-import { useRemoveWorkspace } from '@/features/workspaces/api/use-remove-workspace';
+import { useUpdateWorkspace } from '@/features/workspaces/api/useUpdateWorkspace';
+import { useRemoveWorkspace } from '@/features/workspaces/api/useRemoveWorkspace';
 
 interface PreferencesModelProps {
   open: boolean;

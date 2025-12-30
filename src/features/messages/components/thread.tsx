@@ -8,13 +8,13 @@ import { toast } from "sonner";
 import type { Id } from "@/../convex/_generated/dataModel";
 import { Message } from "@/components/message";
 import { Button } from "@/components/ui/button";
-import { useCurrentMember } from "@/features/members/api/use-current-member";
-import { useCreateMessage } from "@/features/messages/api/use-create-message";
-import { useGetMessage } from "@/features/messages/api/use-get-message";
-import { useGetMessages } from "@/features/messages/api/use-get-messages";
-import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
-import { useChannelId } from "@/hooks/use-channel-id";
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useCurrentMember } from "@/features/members/api/useCurrentMember";
+import { useCreateMessage } from "@/features/messages/api/useCreateMessage";
+import { useGetMessage } from "@/features/messages/api/useGetMessage";
+import { useGetMessages } from "@/features/messages/api/useGetMessages";
+import { useGenerateUploadUrl } from "@/features/upload/api/useGenerateUploadUrl";
+import { useChannelId } from "@/hooks/useChannelId";
+import { useWorkspaceId } from "@/hooks/useWorkspaceId";
 
 const Editor = dynamic(() => import("@/components/editor"), {
   ssr: false,

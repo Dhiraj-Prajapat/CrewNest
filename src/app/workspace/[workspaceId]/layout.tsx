@@ -14,10 +14,10 @@ import {
 } from "@/components/ui/resizable";
 import { Profile } from "@/features/members/components/profile";
 import { Thread } from "@/features/messages/components/thread";
-import { usePanel } from "@/hooks/use-panel";
+import { usePanel } from "@/hooks/usePanel";
 import { Sidebar } from "./sidebar";
 import { Toolbar } from "./toolbar";
-import { WorkspaceSidebar } from "./workspace-sidebar";
+import { WorkspaceSidebar } from "./workspaceSidebar";
 import { Card, CardContent } from "@/components/ui/card";
 
 //below 2 lines are fix the hydration error when i am importing below component.

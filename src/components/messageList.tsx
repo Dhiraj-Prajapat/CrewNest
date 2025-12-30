@@ -2,13 +2,13 @@ import { differenceInMinutes, format, isToday, isYesterday } from 'date-fns';
 import { Loader } from 'lucide-react';
 import { useState } from 'react';
 
-import { useCurrentMember } from '@/features/members/api/use-current-member';
-import type { GetMessagesReturnType } from '@/features/messages/api/use-get-messages';
-import { useWorkspaceId } from '@/hooks/use-workspace-id';
+import { useCurrentMember } from '@/features/members/api/useCurrentMember';
+import type { GetMessagesReturnType } from '@/features/messages/api/useGetMessages';
+import { useWorkspaceId } from '@/hooks/useWorkspaceId';
 
 import { Id } from '../../convex/_generated/dataModel';
-import { ChannelHero } from './channel-hero';
-import { ConversationHero } from './conversation-hero';
+import { ChannelHero } from './channelHero';
+import { ConversationHero } from './conversationHero';
 import { Message } from './message';
 
 const TIME_THRESHOLD = 5;
@@ -22,7 +22,7 @@ interface MessageListProps {
   data: GetMessagesReturnType | undefined;
   loadMore: () => void;
   isLoadingMore: boolean;
-  canLoadMore: boolean; 
+  canLoadMore: boolean;
 }
 
 const formatDateLabel = (dateStr: string) => {

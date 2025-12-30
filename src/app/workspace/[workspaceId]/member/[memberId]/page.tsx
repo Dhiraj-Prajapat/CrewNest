@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import type { Id } from '@/../convex/_generated/dataModel';
-import { useCreateOrGetConversation } from '@/features/conversations/api/use-create-or-get-conversation';
-import { useMemberId } from '@/hooks/use-member-id';
-import { useWorkspaceId } from '@/hooks/use-workspace-id';
+import { useCreateOrGetConversation } from '@/features/conversations/api/useCreateOrGetConversation';
+import { useMemberId } from '@/hooks/useMemberId';
+import { useWorkspaceId } from '@/hooks/useWorkspaceId';
 
 import { Conversation } from './conversation';
 
