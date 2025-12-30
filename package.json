@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@auth/core": "^0.37.0",
-    "@clerk/nextjs": "^6.28.0",
+    "@clerk/nextjs": "^14.2.25",
     "@convex-dev/auth": "^0.0.87",
     "@daily-co/daily-js": "^0.81.0",
     "@daily-co/daily-react": "^0.23.1",
