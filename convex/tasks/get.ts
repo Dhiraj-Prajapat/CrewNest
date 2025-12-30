@@ -14,10 +14,3 @@ export const get = query({
     return tasks;
   },
 });
-
-//     return await ctx.db
-//       .query("tasks")
-//       .withIndex("by_workspace", (q) => q.eq("workspaceId", workspaceId))
-//       .collect();
-//   },
-// });

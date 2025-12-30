@@ -7,8 +7,8 @@ import { Id } from "@/../convex/_generated/dataModel";
 import { api } from "@/../convex/_generated/api";
 
 import { Task } from "../types/task";
-import { useCurrentUser } from "@/features/auth/api/useCurrentUser";
 import { toast } from "sonner";
+import { useCurrentUser } from "@/features/auth/api/useCurrentUser";
 
 interface TaskFormProps {
   task?: Task;
@@ -153,7 +153,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
               onChange={(e) => setAssignedTo(e.target.value as Id<"users"> | "")}
             >
               <option value="">Unassigned</option>
-              {members?.map(m => (
+              {members?.map((m: any) => (
                 <option key={m._id} value={m.user?._id}>
                   {m.user?.name || m.user?.email || "Unknown Member"}
                 </option>
