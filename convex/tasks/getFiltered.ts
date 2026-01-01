@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { query } from "../_generated/server";
 
-export const getFiltered = query({
+export default query({
   args: {
     workspaceId: v.id("workspaces"),
     priority: v.optional(

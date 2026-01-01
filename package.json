@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
     "lint": "next lint"
   },
   "dependencies": {
     "@auth/core": "^0.37.0",
-    "@clerk/nextjs": "^14.2.25",
+    "@clerk/nextjs": "^6.28.0",
     "@convex-dev/auth": "^0.0.87",
     "@daily-co/daily-js": "^0.81.0",
     "@daily-co/daily-react": "^0.23.1",

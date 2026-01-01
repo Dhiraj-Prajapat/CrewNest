@@ -23,6 +23,7 @@ import type * as tasks_create from "../tasks/create.js";
 import type * as tasks_get from "../tasks/get.js";
 import type * as tasks_getAll from "../tasks/getAll.js";
 import type * as tasks_getFiltered from "../tasks/getFiltered.js";
+import type * as tasks_remove from "../tasks/remove.js";
 import type * as tasks_update from "../tasks/update.js";
 import type * as upload from "../upload.js";
 import type * as users from "../users.js";
@@ -50,6 +51,7 @@ declare const fullApi: ApiFromModules<{
   "tasks/get": typeof tasks_get;
   "tasks/getAll": typeof tasks_getAll;
   "tasks/getFiltered": typeof tasks_getFiltered;
+  "tasks/remove": typeof tasks_remove;
   "tasks/update": typeof tasks_update;
   upload: typeof upload;
   users: typeof users;

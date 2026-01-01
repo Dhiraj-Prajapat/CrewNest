@@ -34,8 +34,8 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
   const [subtasks, setSubtasks] = useState<string[]>(task?.subtasks || []);
   const [newSubtask, setNewSubtask] = useState("");
 
-  const createTask = useMutation(api.tasks.create);
-  const updateTask = useMutation(api.tasks.update);
+  const createTask = useMutation(api.tasks.create.default);
+  const updateTask = useMutation(api.tasks.update.default);
 
   // Fetch members safely
   const members = useQuery(api.members.get, workspaceId ? { workspaceId: workspaceId as Id<"workspaces"> } : "skip");
@@ -56,7 +56,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
     try {
       if (task?._id) {
         await updateTask({
-          id: task._id as Id<"tasks">,
+          taskId: task._id as Id<"tasks">,
           title,
           description,
           priority,
@@ -74,6 +74,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
           assignedTo: assignedTo || undefined,
           subtasks,
           workspaceId: workspaceId as Id<"workspaces">,
+          createdBy: user._id,
         });
         toast.success("Task created");
       }

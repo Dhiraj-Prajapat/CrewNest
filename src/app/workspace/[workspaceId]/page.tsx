@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useWorkspaceId } from "@/hooks/useWorkspaceId";
 import { useCurrentMember } from "@/features/members/api/useCurrentMember";
 import { useQuery } from "convex/react";
-import { api } from "@/../convex/_generated/api";
+// import { api } from "@/../convex/_generated/api";
 import { motion } from "framer-motion";
 import {
   CheckCircle,
@@ -15,6 +15,7 @@ import {
   Zap,
   LayoutDashboard
 } from "lucide-react";
+import { api } from "../../../../convex/_generated/api";
 
 const WorkspaceIdPage = () => {
   const router = useRouter();
@@ -26,10 +27,10 @@ const WorkspaceIdPage = () => {
   const notificationCount = useQuery(api.notifications.count, workspaceId ? { workspaceId } : "skip");
 
   // Fetch tasks to count pending assigned
-  const tasks = useQuery(api.tasks.get, workspaceId ? { workspaceId } : "skip");
+  const tasks = useQuery(api.tasks.get.default, workspaceId ? { workspaceId } : "skip");
   const pendingTasksCount = useMemo(() => {
     if (!tasks || !member) return 0;
-    return tasks.filter(t => t.assignedTo === member.userId && !t.completed).length;
+    return tasks.filter((t: any) => t.assignedTo === member.userId && !t.completed).length;
   }, [tasks, member]);
 
   if (memberLoading) {

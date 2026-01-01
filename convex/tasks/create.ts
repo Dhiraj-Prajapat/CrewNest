@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { mutation } from "../_generated/server";
 
-export const create = mutation({
+export default mutation({
   args: {
     title: v.string(),
     description: v.optional(v.string()),

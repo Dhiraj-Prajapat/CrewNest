@@ -26,8 +26,8 @@ interface TaskCardProps {
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
-  const updateTask = useMutation(api.tasks.update);
-  const removeTask = useMutation(api.tasks.remove);
+  const updateTask = useMutation(api.tasks.update.default);
+  const removeTask = useMutation(api.tasks.remove.default);
 
   const { data: currentUser } = useCurrentUser();
   const isCreator = currentUser?._id === task.createdBy;
@@ -35,7 +35,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
   const handleDelete = async (e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      await removeTask({ id: task._id });
+      await removeTask({ taskId: task._id });
       toast.success("Task deleted");
     } catch (error) {
       toast.error("Failed to delete task");
@@ -46,7 +46,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
   const handleToggleComplete = async (e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      await updateTask({ id: task._id, completed: !task.completed });
+      await updateTask({ taskId: task._id, completed: !task.completed });
       toast.success(task.completed ? "Task marked active" : "Task completed");
     } catch (error) {
       toast.error("Failed to update task");
@@ -56,7 +56,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
 
   const handleChangePriority = async (newPriority: "low" | "medium" | "high") => {
     try {
-      await updateTask({ id: task._id, priority: newPriority });
+      await updateTask({ taskId: task._id, priority: newPriority });
       toast.success("Priority updated");
     } catch (error) {
       toast.error("Failed to update priority");

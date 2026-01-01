@@ -9,7 +9,7 @@ export const useTasks = (): { tasks: Task[] } => {
   const params = useParams();
   const { selectedPriority } = useFilters();
 
-  const tasks = useQuery(api.tasks.getFiltered, {
+  const tasks = useQuery(api.tasks.getFiltered.default, {
     workspaceId: params.workspaceId as Id<"workspaces">,
     priority: selectedPriority === "All" ? undefined : selectedPriority,
   });

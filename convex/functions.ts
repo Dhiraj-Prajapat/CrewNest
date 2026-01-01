@@ -1,1 +1,1 @@
-export { get } from "./tasks/get";
+export { default as get } from "./tasks/get";
