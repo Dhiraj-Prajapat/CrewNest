@@ -106,7 +106,7 @@ export function SignInCard({ setState }: SignInCardProps) {
             </div>
 
             <Button type="submit" className="w-full hover:bg-primary/70">
-              Sign In
+              LogIn
             </Button>
           </form>
 
