@@ -1,6 +1,7 @@
 // import { ConvexAuthNextjsServerProvider } from '@convex-dev/auth/nextjs/server';
 import { Inter } from 'next/font/google';
 import { PropsWithChildren } from 'react';
+export const dynamic = "force-dynamic";
 
 import { ConvexClientProvider } from '@/components/convexClientProvider';
 import { JotaiProvider } from '@/components/jotaiProvider';
@@ -19,13 +20,13 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {/* <ConvexAuthNextjsServerProvider> */}
-            <ConvexClientProvider>
-              <JotaiProvider>
-                <Toaster theme="light" richColors closeButton />
-                <ModalProvider />
-                <NuqsAdapter>{children}</NuqsAdapter>
-              </JotaiProvider>
-            </ConvexClientProvider>
+          <ConvexClientProvider>
+            <JotaiProvider>
+              <Toaster theme="light" richColors closeButton />
+              <ModalProvider />
+              <NuqsAdapter>{children}</NuqsAdapter>
+            </JotaiProvider>
+          </ConvexClientProvider>
           {/* </ConvexAuthNextjsServerProvider> */}
         </ThemeProvider>
       </body>

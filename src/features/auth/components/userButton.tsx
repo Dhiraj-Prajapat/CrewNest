@@ -23,7 +23,7 @@ import SettingsModal from "@/components/modals/settingsModal";
 export const UserButton = () => {
   const router = useRouter();
   const { signOut } = useAuthActions();
-  const { data, isLoading } = useCurrentUser();
+  const { data, isLoading } = useCurrentUser() || { data: null, isLoading: true };
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 

@@ -19,7 +19,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
   const params = useParams();
   const workspaceId = params?.workspaceId as string | undefined;
 
-  const { data: user, isLoading: isUserLoading } = useCurrentUser();
+  const { data: user, isLoading: isUserLoading } = useCurrentUser() || { data: null, isLoading: true };
 
   const [title, setTitle] = useState(task?.title || "");
   const [description, setDescription] = useState(task?.description || "");

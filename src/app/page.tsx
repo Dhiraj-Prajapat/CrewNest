@@ -3,6 +3,8 @@
 import { Loader } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo } from 'react';
+export const dynamic = "force-dynamic";
+
 import { UserButton } from '@/features/auth/components/userButton';
 
 import { useGetWorkspaces } from '@/features/workspaces/api/useGetWorkspaces';

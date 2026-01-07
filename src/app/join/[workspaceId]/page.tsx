@@ -12,6 +12,7 @@ import VerificationInput from "react-verification-input";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useMemo, useEffect } from "react";
+export const dynamic = "force-dynamic";
 
 
 const JoinPage = () => {
@@ -19,7 +20,7 @@ const JoinPage = () => {
 
   const workspaceId = useWorkspaceId();
   const { mutate, isPending } = useJoin();
-  const { data, isLoading } = useGetWorkspaceInfo({ id: workspaceId });
+  const { data, isLoading } = useGetWorkspaceInfo({ id: workspaceId }) || { data: null, isLoading: true };
 
   const isMember = useMemo(() => data?.isMember, [data?.isMember]);
   useEffect(() => {

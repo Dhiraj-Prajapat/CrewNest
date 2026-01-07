@@ -2,6 +2,8 @@
 
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
+export const dynamic = "force-dynamic";
+
 import { useWorkspaceId } from "@/hooks/useWorkspaceId";
 import { useCurrentMember } from "@/features/members/api/useCurrentMember";
 import { useQuery } from "convex/react";
@@ -22,7 +24,7 @@ const WorkspaceIdPage = () => {
   const workspaceId = useWorkspaceId();
   const { data: member, isLoading: memberLoading } = useCurrentMember({
     workspaceId,
-  });
+  }) || { data: null, isLoading: true };
 
   const notificationCount = useQuery(api.notifications.count, workspaceId ? { workspaceId } : "skip");
 

@@ -28,16 +28,16 @@ export const WorkspaceSidebar = () => {
 
   const { data: member, isLoading: memberLoading } = useCurrentMember({
     workspaceId,
-  });
+  }) || { data: null, isLoading: true };
   const { data: workspace, isLoading: workspaceLoading } = useGetWorkspace({
     id: workspaceId,
-  });
+  }) || { data: null, isLoading: true };
   const { data: channels, isLoading: channelsLoading } = useGetChannels({
     workspaceId,
-  });
+  }) || { data: [], isLoading: true };
   const { data: members } = useGetMembers({
     workspaceId,
-  });
+  }) || { data: [] };
 
   if (memberLoading || workspaceLoading || channelsLoading) {
     return (
