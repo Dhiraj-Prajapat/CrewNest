@@ -59,10 +59,12 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
 
   const innerRef = useRef<Quill | null>(null);
 
-  const { data: currentMember } = useCurrentMember({ workspaceId });
+  const { data: currentMember, isLoading: isCurrentMemberLoading } = useCurrentMember({
+    workspaceId,
+  }) || { data: null, isLoading: true };
   const { data: message, isLoading: isMessageLoading } = useGetMessage({
     id: messageId,
-  });
+  }) || { data: null, isLoading: true };
 
   const { mutate: createMessage } = useCreateMessage();
   const { mutate: generateUploadUrl } = useGenerateUploadUrl();

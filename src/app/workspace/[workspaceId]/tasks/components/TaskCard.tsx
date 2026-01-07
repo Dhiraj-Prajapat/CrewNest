@@ -29,7 +29,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
   const updateTask = useMutation(api.tasks.update.default);
   const removeTask = useMutation(api.tasks.remove.default);
 
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser() || { data: null };
   const isCreator = currentUser?._id === task.createdBy;
 
   const handleDelete = async (e: React.MouseEvent) => {

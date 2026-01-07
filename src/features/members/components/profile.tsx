@@ -37,8 +37,8 @@ export const Profile = ({ memberId, onClose }: ProfileProps) => {
 
   const { data: currentMember, isLoading: isCurrentMemberLoading } = useCurrentMember({
     workspaceId,
-  });
-  const { data: member, isLoading: isMemberLoading } = useGetMember({ id: memberId });
+  }) || { data: null, isLoading: true };
+  const { data: member, isLoading: isMemberLoading } = useGetMember({ id: memberId }) || { data: null, isLoading: true };
 
   // const { mutate: updateMember, isPending: isUpdatingMember } = useUpdateMember();
   // const { mutate: removeMember, isPending: isRemovingMember } = useRemoveMember();

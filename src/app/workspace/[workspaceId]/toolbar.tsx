@@ -28,9 +28,9 @@ export const Toolbar = () => {
   const router = useRouter();
   const workspaceId = useWorkspaceId();
 
-  const { data } = useGetWorkspace({ id: workspaceId });
-  const { data: channels } = useGetChannels({ workspaceId });
-  const { data: members } = useGetMembers({ workspaceId });
+  const { data } = useGetWorkspace({ id: workspaceId }) || { data: null };
+  const { data: channels } = useGetChannels({ workspaceId }) || { data: [] };
+  const { data: members } = useGetMembers({ workspaceId }) || { data: [] };
 
   const [open, setOpen] = useState(false);
 

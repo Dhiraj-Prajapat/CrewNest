@@ -24,7 +24,7 @@ export const Sidebar = () => {
   const [joinOpen, setJoinOpen] = useState(false);
   // const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const { data: workspace } = useGetWorkspace({ id: workspaceId });
+  const { data: workspace } = useGetWorkspace({ id: workspaceId }) || { data: null };
 
   return (
     <aside

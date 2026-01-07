@@ -19,7 +19,7 @@ export const Conversation = ({ id }: ConversationProps) => {
 
   const { onOpenProfile } = usePanel();
 
-  const { data: member, isLoading: memberLoading } = useGetMember({ id: memberId });
+  const { data: member, isLoading: memberLoading } = useGetMember({ id: memberId }) || { data: null, isLoading: true };
 
   const { results, status, loadMore } = useGetMessages({ conversationId: id });
 

@@ -15,7 +15,7 @@ export default function ChannelIdPage() {
   const { results, status, loadMore } = useGetMessages({ channelId });
   const { data: channel, isLoading: channelLoading } = useGetChannel({
     id: channelId,
-  });
+  }) || { data: null, isLoading: true };
 
   if (channelLoading || status == "LoadingFirstPage") {
     return (

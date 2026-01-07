@@ -230,7 +230,7 @@ export const Header = ({ channelName }: HeaderProps) => {
   const [value, setValue] = useState(channelName);
   const [editOpen, setEditOpen] = useState(false);
 
-  const { data: member, isLoading: memberLoading } = useCurrentMember({ workspaceId });
+  const { data: member, isLoading: memberLoading } = useCurrentMember({ workspaceId }) || { data: null, isLoading: true };
   const { mutate: updateChannel, isPending: isUpdatingChannel } = useUpdateChannel();
   const { mutate: removeChannel, isPending: isRemovingChannel } = useRemoveChannel();
 

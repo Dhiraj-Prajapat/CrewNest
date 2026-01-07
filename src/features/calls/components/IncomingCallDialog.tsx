@@ -30,7 +30,7 @@ export const IncomingCallDialog = ({
 }: IncomingCallDialogProps) => {
   const { data: initiator } = useGetMember({
     id: call?.initiatorId || null,
-  });
+  }) || { data: null };
 
   const { mutate: joinCall } = useJoinCall();
   const { mutate: endCall } = useEndCall();

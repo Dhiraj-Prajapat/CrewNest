@@ -21,7 +21,7 @@ export const CallProvider = () => {
   const workspaceId = pathname.includes('/workspace/') ? rawWorkspaceId : null;
 
   // Listen for incoming calls - pass "skip" if no workspaceId
-  const { data: incomingCalls } = useIncomingCalls(workspaceId);
+  const { data: incomingCalls } = useIncomingCalls(workspaceId) || { data: [] };
 
   // Cleanup mutation
   const cleanupExpiredCalls = useMutation(api.calls.cleanupExpiredCalls);
