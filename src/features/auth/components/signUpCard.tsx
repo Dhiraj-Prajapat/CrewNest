@@ -522,7 +522,7 @@ export function SignUpCard({ setState }: SignUpCardProps) {
 
   const onProviderSignUp = (value: "github" | "google") => {
     setPending(true);
-    signIn(value).finally(() => {
+    signIn(value, { redirectTo: window.location.origin }).finally(() => {
       setPending(false);
     });
   };

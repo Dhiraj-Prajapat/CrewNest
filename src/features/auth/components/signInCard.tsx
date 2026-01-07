@@ -44,7 +44,7 @@ export function SignInCard({ setState }: SignInCardProps) {
 
   const onProviderSignIn = (value: "github" | "google") => {
     setPending(true);
-    signIn(value).finally(() => {
+    signIn(value, { redirectTo: window.location.origin }).finally(() => {
       setPending(false);
     });
   };
