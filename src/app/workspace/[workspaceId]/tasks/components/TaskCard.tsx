@@ -1,11 +1,7 @@
-"use client";
-
-import React from "react";
 import { Task } from "../types/task";
 import { formatDate } from "../utils/formatDate";
 import { cn } from "@/lib/utils";
-<<<<<<< HEAD
-import { Check, MoreHorizontal, Trash, User } from "lucide-react";
+import { Check, MoreHorizontal, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -20,8 +16,6 @@ import { api } from "@/../convex/_generated/api";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
-=======
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
 
 interface TaskCardProps {
   task: Task;
@@ -29,7 +23,6 @@ interface TaskCardProps {
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
-<<<<<<< HEAD
   const updateTask = useMutation(api.tasks.update);
   const removeTask = useMutation(api.tasks.remove);
 
@@ -43,6 +36,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
       toast.success("Task deleted");
     } catch (error) {
       toast.error("Failed to delete task");
+      console.error(error);
     }
   };
 
@@ -53,6 +47,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
       toast.success(task.completed ? "Task marked active" : "Task completed");
     } catch (error) {
       toast.error("Failed to update task");
+      console.error(error);
     }
   };
 
@@ -62,11 +57,10 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
       toast.success("Priority updated");
     } catch (error) {
       toast.error("Failed to update priority");
+      console.error(error);
     }
   };
 
-=======
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
   const dueDateText = task.dueDate
     ? formatDate(new Date(task.dueDate))
     : "No due date";
@@ -74,7 +68,6 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
   return (
     <div
       className={cn(
-<<<<<<< HEAD
         "border rounded-lg p-4 bg-card hover:bg-accent/50 transition-colors cursor-pointer space-y-3 relative group",
         task.completed && "opacity-60 bg-muted/50",
         task.priority === "high"
@@ -143,15 +136,6 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
         <p className="text-sm text-muted-foreground line-clamp-2 pl-7">{task.description}</p>
       )}
 
-      {/* Subtasks Preview */}
-      {task.subtasks && task.subtasks.length > 0 && (
-        <div className="pl-7">
-          <div className="text-xs text-muted-foreground">
-            {task.subtasks.length} subtask{task.subtasks.length !== 1 ? 's' : ''}
-          </div>
-        </div>
-      )}
-
       {/* Footer Info */}
       <div className="flex items-center justify-between pt-2 pl-7 text-xs text-muted-foreground">
         <div className="flex items-center gap-2">
@@ -168,51 +152,6 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
           </div>
         )}
       </div>
-=======
-        "border rounded-lg p-4 cursor-pointer space-y-2",
-        task.priority === "High"
-          ? "border-red-500"
-          : task.priority === "Medium"
-          ? "border-yellow-500"
-          : "border-green-500"
-      )}
-      onClick={onClick}
-    >
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold">{task.title}</h3>
-        <span className="text-xs text-muted-foreground">
-          {task.priority} Priority
-        </span>
-      </div>
-
-      {task.description && (
-        <p className="text-sm text-muted-foreground">{task.description}</p>
-      )}
-
-      <div className="text-xs text-muted-foreground">
-        Due: {dueDateText}
-      </div>
-
-      {task.assignedTo && (
-        <div className="text-xs text-muted-foreground">
-          Assigned to: {task.assignedTo}
-        </div>
-      )}
-
-      {/* ✅ Subtasks */}
-      {task.subtasks && task.subtasks.length > 0 && (
-        <div className="pt-2">
-          <p className="text-xs font-medium text-muted-foreground mb-1">
-            Subtasks:
-          </p>
-          <ul className="list-disc list-inside space-y-1 text-sm">
-            {task.subtasks.map((subtask, index) => (
-              <li key={index}>{subtask}</li>
-            ))}
-          </ul>
-        </div>
-      )}
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
     </div>
   );
 };

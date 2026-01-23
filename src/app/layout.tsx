@@ -12,7 +12,7 @@ import AuthRedirect from '@/components/authRedirect';
 import { ThemeProvider } from '@/components/theme-provider'; // ✅ added
 
 import './globals.css';
-import { CallProvider } from '@/components/call-provider';
+// import { CallProvider } from '@/components/call-provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,7 +22,6 @@ const RootLayout = ({ children }: Readonly<PropsWithChildren>) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-<<<<<<< HEAD
         {/* <ClerkProvider> */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem> {/* ✅ ThemeProvider wraps all */}
           <ConvexAuthNextjsServerProvider>
@@ -38,9 +37,8 @@ const RootLayout = ({ children }: Readonly<PropsWithChildren>) => {
           </ConvexAuthNextjsServerProvider>
         </ThemeProvider>
         {/* </ClerkProvider> */}
-=======
-        <ClerkProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem> {/* ✅ ThemeProvider wraps all */}
+        {/* <ClerkProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem> 
             <ConvexAuthNextjsServerProvider>
               <ConvexClientProvider>
                 <JotaiProvider>
@@ -54,8 +52,7 @@ const RootLayout = ({ children }: Readonly<PropsWithChildren>) => {
               </ConvexClientProvider>
             </ConvexAuthNextjsServerProvider>
           </ThemeProvider>
-        </ClerkProvider>
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
+        </ClerkProvider> */}
       </body>
     </html>
   );

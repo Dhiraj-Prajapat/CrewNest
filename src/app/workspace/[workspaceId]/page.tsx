@@ -6,6 +6,7 @@ import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { useQuery } from "convex/react";
 import { api } from "@/../convex/_generated/api";
+import { Id } from "@/../convex/_generated/dataModel";
 import { motion } from "framer-motion";
 import {
   CheckCircle,
@@ -18,27 +19,14 @@ import {
 
 const WorkspaceIdPage = () => {
   const router = useRouter();
-  const workspaceId = useWorkspaceId();
-<<<<<<< HEAD
-=======
-  const [open, setOpen] = useCreateChannelModel();
-  const { data: workspace, isLoading: workspaceLoading } = useGetWorkspace({ id: workspaceId });
-  // const { data: workspace, isLoading: workspaceLoading } = useGetWorkspaceInfo({ id: workspaceId || null });
-  const { data: channels, isLoading: channelsLoading } = useGetChannels({
-    workspaceId,
-  });
-  const { data: member, isLoading: memberLoading } = useCurrentMember({
-    workspaceId,
-  });
-  const channelId = useMemo(() => channels?.[0]?._id, [channels]);
-  const isadmin = useMemo(() => member?.role === "admin", [member?.role]);
->>>>>>> 98ce06dff3c1969d0a6a99826e3efe4921540848
+  const workspaceId = useWorkspaceId() as Id<"workspaces">;
 
   const { data: member, isLoading: memberLoading } = useCurrentMember({ workspaceId });
   const notificationCount = useQuery(api.notifications.count, { workspaceId });
 
   // Fetch tasks to count pending assigned
-  const tasks = useQuery(api.tasks.get, { workspaceId });
+  const tasks = useQuery(api.tasks.get, { workspaceId: workspaceId as Id<"workspaces"> });
+
   const pendingTasksCount = useMemo(() => {
     if (!tasks || !member) return 0;
     return tasks.filter(t => t.assignedTo === member.userId && !t.completed).length;
@@ -93,7 +81,7 @@ const WorkspaceIdPage = () => {
             </motion.span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
-            Here's what's happening in your workspace today.
+            Here&apos;s what&apos;s happening in your workspace today.
           </p>
         </motion.div>
 
